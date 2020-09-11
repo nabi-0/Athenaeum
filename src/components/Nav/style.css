@@ -1,0 +1,20 @@
+.navBody {
+  border: solid black 2px;
+  display: flex;
+}
+
+.navbarList {
+  text-align: center;
+  display: flex;
+  justify-content: right;
+}
+
+li {
+  margin-left: 50px;
+  list-style-type: none;
+}
+
+container1 {
+  display: flex;
+  justify-content: right;
+}
