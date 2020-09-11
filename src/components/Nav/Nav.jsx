@@ -8,10 +8,18 @@ function Main() {
       <h2>Athaenaeum | nav bar</h2>
       <div id="container1">
         <ul className="navbarList">
-          <li>test1</li>
-          <li>test1</li>
-          <li>test1</li>
-          <li>test1</li>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/account">My Account</Link>
+          </li>
+          <li>
+            <Link to="/search">Search</Link>
+          </li>
+          <li>
+            <Link to="/settings">Settings</Link>
+          </li>
         </ul>
       </div>
     </div>

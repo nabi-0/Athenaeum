@@ -11,6 +11,7 @@
 
 li {
   margin-left: 50px;
+  list-style-type: none;
 }
 
 container1 {
