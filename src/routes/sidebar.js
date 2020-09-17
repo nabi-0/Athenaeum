@@ -7,67 +7,54 @@
  */
 const routes = [
   {
-    path: '/app/dashboard', // the url
-    icon: 'HomeIcon', // the component being exported from icons/index.js
-    name: 'Dashboard', // name that appear in Sidebar
+    path: "/app/dashboard", // the url
+    icon: "HomeIcon", // the component being exported from icons/index.js
+    name: "Dashboard", // name that appear in Sidebar
   },
   {
-    path: '/app/forms',
-    icon: 'FormsIcon',
-    name: 'Forms',
+    path: "/app/mypage",
+    icon: "FormsIcon",
+    name: "My Page",
   },
   {
-    path: '/app/cards',
-    icon: 'CardsIcon',
-    name: 'Cards',
+    path: "/app/watchlist",
+    icon: "CardsIcon",
+    name: "Watchlist",
   },
   {
-    path: '/app/charts',
-    icon: 'ChartsIcon',
-    name: 'Charts',
+    path: "/app/popular",
+    icon: "ChartsIcon",
+    name: "Popular Items",
   },
   {
-    path: '/app/buttons',
-    icon: 'ButtonsIcon',
-    name: 'Buttons',
+    path: "/app/discover",
+    icon: "ButtonsIcon",
+    name: "Discover",
   },
+
   {
-    path: '/app/modals',
-    icon: 'ModalsIcon',
-    name: 'Modals',
-  },
-  {
-    path: '/app/tables',
-    icon: 'TablesIcon',
-    name: 'Tables',
-  },
-  {
-    icon: 'PagesIcon',
-    name: 'Pages',
+    icon: "PagesIcon",
+    name: "Account Services",
     routes: [
       // submenu
       {
-        path: '/login',
-        name: 'Login',
+        path: "/friends",
+        name: "Friends",
       },
       {
-        path: '/create-account',
-        name: 'Create account',
+        path: "/listings",
+        name: "My Listings",
       },
       {
-        path: '/forgot-password',
-        name: 'Forgot password',
+        path: "/user-info",
+        name: "User Info",
       },
       {
-        path: '/app/404',
-        name: '404',
-      },
-      {
-        path: '/app/blank',
-        name: 'Blank',
+        path: "/settings",
+        name: "Settings",
       },
     ],
   },
-]
+];
 
-export default routes
+export default routes;

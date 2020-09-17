@@ -83,7 +83,7 @@ function Dashboard() {
           />
         </InfoCard>
 
-        <InfoCard title="Friends" value="7">
+        <InfoCard title="Messages" value="7">
           <RoundIcon
             icon={ChatIcon}
             iconColorClass="text-teal-500 dark:text-teal-100"
@@ -97,10 +97,10 @@ function Dashboard() {
         <Table>
           <TableHeader>
             <tr>
-              <TableCell>Client</TableCell>
-              <TableCell>Amount</TableCell>
+              <TableCell>Book Name</TableCell>
+              <TableCell>Price</TableCell>
               <TableCell>Status</TableCell>
-              <TableCell>Date</TableCell>
+              <TableCell>Date Added</TableCell>
             </tr>
           </TableHeader>
           <TableBody>
