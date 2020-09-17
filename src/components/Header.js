@@ -53,7 +53,7 @@ function Header() {
             </div>
             <Input
               className="pl-8 text-gray-700"
-              placeholder="Search for books, authors, users, etc"
+              placeholder="Search for books, authors, users, etc."
               aria-label="Search"
             />
           </div>

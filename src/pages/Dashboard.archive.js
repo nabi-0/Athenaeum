@@ -56,7 +56,7 @@ function Dashboard() {
 
       {/* <!-- Cards --> */}
       <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-        <InfoCard title="Watched Authors" value="11">
+        <InfoCard title="Total clients" value="6389">
           <RoundIcon
             icon={PeopleIcon}
             iconColorClass="text-orange-500 dark:text-orange-100"
@@ -65,7 +65,7 @@ function Dashboard() {
           />
         </InfoCard>
 
-        <InfoCard title="Book Wishlist" value="21">
+        <InfoCard title="Account balance" value="$ 46,760.89">
           <RoundIcon
             icon={MoneyIcon}
             iconColorClass="text-green-500 dark:text-green-100"
@@ -74,7 +74,7 @@ function Dashboard() {
           />
         </InfoCard>
 
-        <InfoCard title="Cart" value="3">
+        <InfoCard title="New sales" value="376">
           <RoundIcon
             icon={CartIcon}
             iconColorClass="text-blue-500 dark:text-blue-100"
@@ -83,7 +83,7 @@ function Dashboard() {
           />
         </InfoCard>
 
-        <InfoCard title="Messages" value="7">
+        <InfoCard title="Pending contacts" value="35">
           <RoundIcon
             icon={ChatIcon}
             iconColorClass="text-teal-500 dark:text-teal-100"
@@ -97,10 +97,10 @@ function Dashboard() {
         <Table>
           <TableHeader>
             <tr>
-              <TableCell>Book Name</TableCell>
-              <TableCell>Price</TableCell>
+              <TableCell>Client</TableCell>
+              <TableCell>Amount</TableCell>
               <TableCell>Status</TableCell>
-              <TableCell>Date Added</TableCell>
+              <TableCell>Date</TableCell>
             </tr>
           </TableHeader>
           <TableBody>
@@ -146,14 +146,14 @@ function Dashboard() {
         </TableFooter>
       </TableContainer>
 
-      <PageTitle>Account Data</PageTitle>
+      <PageTitle>Charts</PageTitle>
       <div className="grid gap-6 mb-8 md:grid-cols-2">
-        {/* <ChartCard title="Revenue">
+        <ChartCard title="Revenue">
           <Doughnut {...doughnutOptions} />
           <ChartLegend legends={doughnutLegends} />
-        </ChartCard> */}
+        </ChartCard>
 
-        <ChartCard title="Traffic (marketplace views)">
+        <ChartCard title="Traffic">
           <Line {...lineOptions} />
           <ChartLegend legends={lineLegends} />
         </ChartCard>

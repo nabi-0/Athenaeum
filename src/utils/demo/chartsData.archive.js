@@ -4,9 +4,15 @@ export const doughnutLegends = [
   { title: "Bags", color: "bg-purple-600" },
 ];
 
-export const lineLegends = [{ title: "Views", color: "bg-purple-600" }];
+export const lineLegends = [
+  { title: "Organic", color: "bg-teal-600" },
+  { title: "Paid", color: "bg-purple-600" },
+];
 
-export const barLegends = [{ title: "Bags", color: "bg-purple-600" }];
+export const barLegends = [
+  { title: "Shoes", color: "bg-teal-600" },
+  { title: "Bags", color: "bg-purple-600" },
+];
 
 export const doughnutOptions = {
   data: {
@@ -37,7 +43,18 @@ export const lineOptions = {
     labels: ["January", "February", "March", "April", "May", "June", "July"],
     datasets: [
       {
-        label: "Views",
+        label: "Organic",
+        /**
+         * These colors come from Tailwind CSS palette
+         * https://tailwindcss.com/docs/customizing-colors/#default-color-palette
+         */
+        backgroundColor: "#0694a2",
+        borderColor: "#0694a2",
+        data: [43, 48, 40, 54, 67, 73, 70],
+        fill: false,
+      },
+      {
+        label: "Paid",
         fill: false,
         /**
          * These colors come from Tailwind CSS palette

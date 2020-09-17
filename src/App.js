@@ -25,7 +25,7 @@ function App() {
           {/* Place new routes over this */}
           <Route path="/app" component={Layout} />
           {/* If you have an index page, you can remothis Redirect */}
-          <Redirect exact from="/" to="/app" />
+          <Redirect exact from="/" to="/login" />
         </Switch>
       </Router>
     </>
