@@ -1,27 +1,34 @@
-import React from "react";
-import "./App.css";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-// import Account from "./components/Account/Account";
-import Main from "./components/Main/Main";
-// import Search from "./components/Search/Search";
-// import Settings from "./components/Settings/Settings";
+import React, { lazy } from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
+import AccessibleNavigationAnnouncer from "./components/AccessibleNavigationAnnouncer";
+
+const Layout = lazy(() => import("./containers/Layout"));
+const Login = lazy(() => import("./pages/Login"));
+const CreateAccount = lazy(() => import("./pages/CreateAccount"));
+const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
 
 function App() {
   return (
-    <Router>
-      <Route path="/" exact>
-        <Main />
-      </Route>
-      {/* <Route path="/account" exact>
-        <Account />
-      </Route>
-      <Route path="/search" exact>
-        <Search />
-      </Route>
-      <Route path="/settings" exact>
-        <Settings />
-      </Route> */}
-    </Router>
+    <>
+      <Router>
+        <AccessibleNavigationAnnouncer />
+        <Switch>
+          <Route path="/login" component={Login} />
+          <Route path="/create-account" component={CreateAccount} />
+          <Route path="/forgot-password" component={ForgotPassword} />
+
+          {/* Place new routes over this */}
+          <Route path="/app" component={Layout} />
+          {/* If you have an index page, you can remothis Redirect */}
+          <Redirect exact from="/" to="/login" />
+        </Switch>
+      </Router>
+    </>
   );
 }
 
