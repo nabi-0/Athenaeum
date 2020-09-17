@@ -56,7 +56,7 @@ function Dashboard() {
 
       {/* <!-- Cards --> */}
       <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-        <InfoCard title="Authors" value="11">
+        <InfoCard title="Watched Authors" value="11">
           <RoundIcon
             icon={PeopleIcon}
             iconColorClass="text-orange-500 dark:text-orange-100"
@@ -65,7 +65,7 @@ function Dashboard() {
           />
         </InfoCard>
 
-        <InfoCard title="Wishlist" value="21">
+        <InfoCard title="Book Wishlist" value="21">
           <RoundIcon
             icon={MoneyIcon}
             iconColorClass="text-green-500 dark:text-green-100"
