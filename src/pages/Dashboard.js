@@ -56,7 +56,7 @@ function Dashboard() {
 
       {/* <!-- Cards --> */}
       <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-        <InfoCard title="Total clients" value="6389">
+        <InfoCard title="Authors" value="11">
           <RoundIcon
             icon={PeopleIcon}
             iconColorClass="text-orange-500 dark:text-orange-100"
@@ -65,7 +65,7 @@ function Dashboard() {
           />
         </InfoCard>
 
-        <InfoCard title="Account balance" value="$ 46,760.89">
+        <InfoCard title="Wishlist" value="21">
           <RoundIcon
             icon={MoneyIcon}
             iconColorClass="text-green-500 dark:text-green-100"
@@ -74,7 +74,7 @@ function Dashboard() {
           />
         </InfoCard>
 
-        <InfoCard title="New sales" value="376">
+        <InfoCard title="Cart" value="3">
           <RoundIcon
             icon={CartIcon}
             iconColorClass="text-blue-500 dark:text-blue-100"
@@ -83,7 +83,7 @@ function Dashboard() {
           />
         </InfoCard>
 
-        <InfoCard title="Pending contacts" value="35">
+        <InfoCard title="Friends" value="7">
           <RoundIcon
             icon={ChatIcon}
             iconColorClass="text-teal-500 dark:text-teal-100"
@@ -146,14 +146,14 @@ function Dashboard() {
         </TableFooter>
       </TableContainer>
 
-      <PageTitle>Charts</PageTitle>
+      <PageTitle>Account Data</PageTitle>
       <div className="grid gap-6 mb-8 md:grid-cols-2">
-        <ChartCard title="Revenue">
+        {/* <ChartCard title="Revenue">
           <Doughnut {...doughnutOptions} />
           <ChartLegend legends={doughnutLegends} />
-        </ChartCard>
+        </ChartCard> */}
 
-        <ChartCard title="Traffic">
+        <ChartCard title="Traffic (marketplace views)">
           <Line {...lineOptions} />
           <ChartLegend legends={lineLegends} />
         </ChartCard>
