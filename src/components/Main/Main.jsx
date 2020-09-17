@@ -1,20 +1,26 @@
 import React from "react";
-import "./style.css";
+import "../../App.css";
 import { Link } from "react-router-dom";
 import Nav from "../Nav/Nav";
+import Sidebar from "../Sidebar/Sidebar";
 
 function Main() {
   return (
     <div className="mainBody">
-      <Nav />
-      {/* <h2>Athaenaeum</h2> */}
-      <div id="space1"></div>
-      <div id="container1">
-        <p>Hewwo</p>
-        <br />
-        <p>Main site body</p>
+      <div class="mainNavDiv">
+        <Nav />
       </div>
-      <div id="container12"></div>
+
+      <div class="sidebarAndMain">
+        <div class="mainSidebarDiv">
+          <Sidebar />
+        </div>
+        <div class="mainDiv">
+          <p>Hewwo</p>
+          <br />
+          <p>Main site body</p>
+        </div>
+      </div>
     </div>
   );
 }

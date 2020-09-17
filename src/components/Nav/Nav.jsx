@@ -1,12 +1,12 @@
 import React from "react";
-import "./style.css";
+import "../../App.css";
 import { Link } from "react-router-dom";
 
 function Main() {
   return (
     <div className="navBody">
       <h2>Athaenaeum | nav bar</h2>
-      <div id="container1">
+      <div id="navContainer">
         <ul className="navbarList">
           <li>
             <Link to="/">Home</Link>
