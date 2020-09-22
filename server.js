@@ -14,6 +14,18 @@ mongoose.connect(
   }
 );
 
+// Testing User model and mongoose connections
+const User = require("./models/User");
+const userInput = {
+  username: "testusername",
+  password: "9423859",
+};
+const user = new User(userInput);
+user.save((err, document) => {
+  if (err) console.log(err);
+  console.log(document);
+});
+
 app.listen(PORT, () => {
   console.log("express server started");
 });
