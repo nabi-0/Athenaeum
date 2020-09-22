@@ -14,18 +14,21 @@ mongoose.connect(
   }
 );
 
+const userRouter = require("./routes/User");
+app.use("/user", userRouter);
+
 // Testing User model and mongoose connections
-const User = require("./models/User");
-const userInput = {
-  username: "asdfasdf",
-  password: "9423859",
-  role: "admin",
-};
-const user = new User(userInput);
-user.save((err, document) => {
-  if (err) console.log(err);
-  console.log(document);
-});
+// const User = require("./models/User");
+// const userInput = {
+//   username: "asdfasdf",
+//   password: "9423859",
+//   role: "admin",
+// };
+// const user = new User(userInput);
+// user.save((err, document) => {
+//   if (err) console.log(err);
+//   console.log(document);
+// });
 
 app.listen(PORT, () => {
   console.log("express server started");
