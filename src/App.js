@@ -18,14 +18,15 @@ function App() {
       <Router>
         <AccessibleNavigationAnnouncer />
         <Switch>
+          {/* If you have an index page, you can remove this Redirect */}
+          <Redirect exact from="/" to="/login" />
+
           <Route path="/login" component={Login} />
           <Route path="/create-account" component={CreateAccount} />
           <Route path="/forgot-password" component={ForgotPassword} />
 
           {/* Place new routes over this */}
           <Route path="/app" component={Layout} />
-          {/* If you have an index page, you can remove this Redirect */}
-          <Redirect exact from="/" to="/login" />
         </Switch>
       </Router>
     </>
