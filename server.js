@@ -17,8 +17,9 @@ mongoose.connect(
 // Testing User model and mongoose connections
 const User = require("./models/User");
 const userInput = {
-  username: "testusername",
+  username: "asdfasdf",
   password: "9423859",
+  role: "admin",
 };
 const user = new User(userInput);
 user.save((err, document) => {
