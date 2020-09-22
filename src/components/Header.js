@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import API from "../utils/API";
 import { SidebarContext } from "../context/SidebarContext";
 import {
   SearchIcon,
@@ -19,12 +20,14 @@ import {
   WindmillContext,
 } from "@windmill/react-ui";
 
-function Header() {
+function Header(props) {
   const { mode, toggleMode } = useContext(WindmillContext);
   const { toggleSidebar } = useContext(SidebarContext);
 
   const [isNotificationsMenuOpen, setIsNotificationsMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+
+  const [title, setTitle] = useState("");
 
   function handleNotificationsClick() {
     setIsNotificationsMenuOpen(!isNotificationsMenuOpen);
@@ -32,6 +35,15 @@ function Header() {
 
   function handleProfileClick() {
     setIsProfileMenuOpen(!isProfileMenuOpen);
+  }
+
+  // function Search(props) {
+  //   const [title, setTitle] = useState("");
+  const submitHandler = (event) => {
+    event.preventDefault();
+    API.SearchBooks(title)
+      .then(res => props.setResults(res.data.items))
+      .catch(err => console.log(err));
   }
 
   return (
@@ -51,11 +63,16 @@ function Header() {
             <div className="absolute inset-y-0 flex items-center pl-2">
               <SearchIcon className="w-4 h-4" aria-hidden="true" />
             </div>
-            <Input
-              className="pl-8 text-gray-700"
-              placeholder="Search for books, authors, users, etc."
-              aria-label="Search"
-            />
+            <form
+              onSubmit={submitHandler}>
+              <Input
+                onChange={(event) => setTitle(event.target.value)}
+                value={title}
+                className="pl-8 text-gray-700"
+                placeholder="Search for books, authors, users, etc."
+                aria-label="Search"
+              />
+            </form>
           </div>
         </div>
         <ul className="flex items-center flex-shrink-0 space-x-6">
@@ -69,8 +86,8 @@ function Header() {
               {mode === "dark" ? (
                 <SunIcon className="w-5 h-5" aria-hidden="true" />
               ) : (
-                <MoonIcon className="w-5 h-5" aria-hidden="true" />
-              )}
+                  <MoonIcon className="w-5 h-5" aria-hidden="true" />
+                )}
             </button>
           </li>
           {/* <!-- Notifications menu --> */}
