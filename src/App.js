@@ -1,4 +1,5 @@
-import React, { lazy } from "react";
+import React, { lazy, useContext } from "react";
+import { AuthContext } from "./context/AuthContext";
 import {
   BrowserRouter as Router,
   Switch,
@@ -13,6 +14,11 @@ const CreateAccount = lazy(() => import("./pages/CreateAccount"));
 const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
 
 function App() {
+  const { user, setUser, isAuthenticated, setIsAuthenticated } = useContext(
+    AuthContext
+  );
+  console.log(user);
+  console.log(isAuthenticated);
   return (
     <>
       <Router>
