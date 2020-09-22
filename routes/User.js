@@ -89,17 +89,59 @@ userRouter.post(
               message: { msgBody: "Error has occured", msgError: true },
             });
           } else
-            res
-              .status(200)
-              .json({
-                message: {
-                  msgBody: "Successfully created todo",
-                  msgError: false,
-                },
-              });
+            res.status(200).json({
+              message: {
+                msgBody: "Successfully created todo",
+                msgError: false,
+              },
+            });
         });
       }
     });
+  }
+);
+
+userRouter.get(
+  "/todos",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    User.findById({ _id: req.user._id })
+      .populate("todos")
+      .exec((err, document) => {
+        if (err) {
+          res.status(500).json({
+            message: { msgBody: "Error has occured", msgError: true },
+          });
+        } else {
+          res.status(200).json({ todos: document.todos, authenticate: true });
+        }
+      });
+  }
+);
+
+userRouter.get(
+  "/admin",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    if (req.user.role === "admin") {
+      res
+        .status(200)
+        .json({ message: { msgBody: "You are an admin", msgError: false } });
+    } else {
+      res
+        .status(403)
+        .json({ message: { msgBody: "You're not an admin", msgError: true } });
+    }
+  }
+);
+
+// for persistance
+userRouter.get(
+  "/authenticated",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const { username, role } = req.user;
+    res.status(200).json({ isAuthenticated: true, user: { username, role } });
   }
 );
 
