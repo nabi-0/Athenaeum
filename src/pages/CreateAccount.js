@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
+import axios from "axios";
 import ImageLight from "../assets/img/create-account-office.jpeg";
 import ImageDark from "../assets/img/create-account-office-dark.jpeg";
 import { GithubIcon, TwitterIcon } from "../icons";
@@ -9,6 +9,23 @@ import { Input, Label, Button } from "@windmill/react-ui";
 function Login() {
   const [registerUsername, setRegisterUsername] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
+  const [loginUsername, setLoginUsername] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
+
+  const register = () => {
+    axios({
+      method: "post",
+      data: {
+        username: registerUsername,
+        password: registerPassword,
+      },
+      withCredentials: true,
+      url: "http://localhost:4000/register",
+    }).then((res) => console.log(res));
+  };
+
+  const login = () => {};
+  const getUser = () => {};
 
   return (
     <div className="flex items-center min-h-screen p-6 bg-gray-50 dark:bg-gray-900">
@@ -39,6 +56,10 @@ function Login() {
                   className="mt-1"
                   type="email"
                   placeholder="john@doe.com"
+                  onChange={(event) => {
+                    setRegisterUsername(event.target.value);
+                    console.log(event.target.value);
+                  }}
                 />
               </Label>
               <Label className="mt-4">
@@ -47,6 +68,7 @@ function Login() {
                   className="mt-1"
                   placeholder="***************"
                   type="password"
+                  onChange={(event) => setRegisterPassword(event.target.value)}
                 />
               </Label>
               <Label className="mt-4">
@@ -66,8 +88,23 @@ function Login() {
                 </span>
               </Label>
 
-              <Button tag={Link} to="/login" block className="mt-4">
+              <Button
+                onClick={register}
+                tag={Link}
+                to="/login"
+                block
+                className="mt-4"
+              >
                 Create account
+              </Button>
+
+              <Button
+                // tag={Link} to="/login"
+                block
+                className="mt-4"
+                onClick={getUser}
+              >
+                Get user
               </Button>
 
               <hr className="my-8" />
