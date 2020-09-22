@@ -1,4 +1,4 @@
-import React, { useContext, Suspense, useEffect, lazy } from "react";
+import React, { useContext, Suspense, useEffect, useState, lazy } from "react";
 import { Switch, Route, Redirect, useLocation } from "react-router-dom";
 import routes from "../routes";
 
@@ -14,6 +14,8 @@ function Layout() {
   const { isSidebarOpen, closeSidebar } = useContext(SidebarContext);
   let location = useLocation();
 
+  const [results, setResults] = useState([]);
+
   useEffect(() => {
     closeSidebar();
   }, [location]);
@@ -22,12 +24,12 @@ function Layout() {
     <div
       className={`flex h-screen bg-gray-50 dark:bg-gray-900 ${
         isSidebarOpen && "overflow-hidden"
-      }`}
+        }`}
     >
       <Sidebar />
 
       <div className="flex flex-col flex-1 w-full">
-        <Header />
+        <Header setResults={setResults} />
         <Main>
           <Suspense fallback={<ThemedSuspense />}>
             <Switch>
@@ -37,7 +39,7 @@ function Layout() {
                     key={i}
                     exact={true}
                     path={`/app${route.path}`}
-                    render={(props) => <route.component {...props} />}
+                    render={(props) => <route.component {...props} results={results} />}
                   />
                 ) : null;
               })}
