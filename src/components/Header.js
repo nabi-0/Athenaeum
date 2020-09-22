@@ -1,4 +1,7 @@
 import React, { useContext, useState } from "react";
+import { Link } from "react-router-dom";
+import AuthService from "../Services/AuthService";
+import { AuthContext } from "../context/AuthContext";
 import { SidebarContext } from "../context/SidebarContext";
 import {
   SearchIcon,
@@ -19,7 +22,7 @@ import {
   WindmillContext,
 } from "@windmill/react-ui";
 
-function Header() {
+function Header(props) {
   const { mode, toggleMode } = useContext(WindmillContext);
   const { toggleSidebar } = useContext(SidebarContext);
 
