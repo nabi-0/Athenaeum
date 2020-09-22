@@ -9,7 +9,7 @@ const cookieParser = require("cookie-parser");
 const bcrypt = require("bcryptjs");
 const session = require("express-session");
 const bodyParser = require("body-parser");
-const PORT = 3000;
+const PORT = 4000;
 
 const app = express();
 
