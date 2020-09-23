@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { Button } from "@windmill/react-ui";
 import { Link } from "react-router-dom";
 import AuthService from "../Services/AuthService";
 import { AuthContext } from "../context/AuthContext";
@@ -21,6 +22,7 @@ import {
   DropdownItem,
   WindmillContext,
 } from "@windmill/react-ui";
+import { authenticate } from "passport";
 
 function Header(props) {
   const { mode, toggleMode } = useContext(WindmillContext);
@@ -37,6 +39,30 @@ function Header(props) {
     setIsProfileMenuOpen(!isProfileMenuOpen);
   }
 
+  const { isAuthenticated, user, setIsAuthenticated, setUser } = useContext(
+    AuthContext
+  );
+
+  const unauthenticatedNavBar = () => {
+    return <Button disabled>You are not logged in</Button>;
+  };
+
+  const authenticatedNavBar = () => {
+    return <Button disabled>You are successfully logged in</Button>;
+  };
+
+  const onClickLogoutHandler = () => {
+    AuthService.logout().then((data) => {
+      if (data.success) {
+        setUser(data.user);
+        setIsAuthenticated(false);
+        console.log("user logged out");
+      } else {
+        console.log("test");
+      }
+    });
+  };
+
   return (
     <header className="z-40 py-4 bg-white shadow-bottom dark:bg-gray-800">
       <div className="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300">
@@ -48,6 +74,9 @@ function Header(props) {
         >
           <MenuIcon className="w-6 h-6" aria-hidden="true" />
         </button>
+        <div>
+          {!isAuthenticated ? unauthenticatedNavBar() : authenticatedNavBar()}
+        </div>
         {/* <!-- Search input --> */}
         <div className="flex justify-center flex-1 lg:mr-32">
           <div className="relative w-full max-w-xl mr-6 focus-within:text-purple-500">
@@ -141,7 +170,7 @@ function Header(props) {
                 <OutlineCogIcon className="w-4 h-4 mr-3" aria-hidden="true" />
                 <span>Settings</span>
               </DropdownItem>
-              <DropdownItem onClick={() => alert("Log out!")}>
+              <DropdownItem onClick={onClickLogoutHandler}>
                 <OutlineLogoutIcon
                   className="w-4 h-4 mr-3"
                   aria-hidden="true"

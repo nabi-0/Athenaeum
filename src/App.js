@@ -1,5 +1,7 @@
-import React, { lazy, useContext } from "react";
+import React, { lazy, useContext, useState } from "react";
 import { AuthContext } from "./context/AuthContext";
+import AuthService from "./Services/AuthService";
+// import Message from "./components/Message";
 import {
   BrowserRouter as Router,
   Switch,
@@ -14,19 +16,18 @@ const CreateAccount = lazy(() => import("./pages/CreateAccount"));
 const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
 
 function App() {
-  const { user, setUser, isAuthenticated, setIsAuthenticated } = useContext(
-    AuthContext
-  );
-  console.log(user);
-  console.log(isAuthenticated);
+  // const { user, setUser, isAuthenticated, setIsAuthenticated } = useContext(
+  //   AuthContext
+  // );
+  // console.log(user);
+  // console.log(isAuthenticated);
   return (
     <>
       <Router>
         <AccessibleNavigationAnnouncer />
         <Switch>
-          {/* If you have an index page, you can remove this Redirect */}
           <Redirect exact from="/" to="/login" />
-
+          {/* <Redirect exact from="/" to="/app" /> */}
           <Route path="/login" component={Login} />
           <Route path="/create-account" component={CreateAccount} />
           <Route path="/forgot-password" component={ForgotPassword} />

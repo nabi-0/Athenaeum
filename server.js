@@ -20,8 +20,8 @@ app.use("/user", userRouter);
 // Testing User model and mongoose connections
 // const User = require("./models/User");
 // const userInput = {
-//   username: "asdfasdf",
-//   password: "9423859",
+//   username: "test",
+//   password: "password",
 //   role: "admin",
 // };
 // const user = new User(userInput);
