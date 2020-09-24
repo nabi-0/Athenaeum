@@ -124,7 +124,7 @@ function Messages(props) {
               </TableCell>
               <TableCell></TableCell>
               <TableCell>
-                <span className="text-sm">Read</span>
+                <span className="text-sm text-gray-400">Read</span>
               </TableCell>
               <TableCell>
                 <Badge type={user.status}>09/09/20</Badge>
@@ -145,7 +145,7 @@ function Messages(props) {
               </TableCell>
               <TableCell></TableCell>
               <TableCell>
-                <span className="text-sm">Read</span>
+                <span className="text-sm text-gray-400">Read</span>
               </TableCell>
               <TableCell>
                 <Badge type={user.status}>09/05/20</Badge>

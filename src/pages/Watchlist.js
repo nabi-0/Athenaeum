@@ -106,14 +106,6 @@ function Watchlist(props) {
           />
         </TableFooter>
       </TableContainer>
-
-      <PageTitle>Account Data</PageTitle>
-      <div className="grid gap-6 mb-8 md:grid-cols-2">
-        <ChartCard title="Traffic (marketplace views)">
-          <Line {...lineOptions} />
-          <ChartLegend legends={lineLegends} />
-        </ChartCard>
-      </div>
     </>
   );
 }
