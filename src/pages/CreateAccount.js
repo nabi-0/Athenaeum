@@ -1,31 +1,56 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import ImageLight from "../assets/img/create-account-office.jpeg";
 import ImageDark from "../assets/img/create-account-office-dark.jpeg";
 import { GithubIcon, TwitterIcon } from "../icons";
 import { Input, Label, Button } from "@windmill/react-ui";
+import AuthService from "../Services/AuthService";
+import Message from "../components/Message";
 
-function Login() {
-  const [registerUsername, setRegisterUsername] = useState("");
-  const [registerPassword, setRegisterPassword] = useState("");
-  const [loginUsername, setLoginUsername] = useState("");
-  const [loginPassword, setLoginPassword] = useState("");
+function Register(props) {
+  const [user, setUser] = useState({
+    username: "",
+    password: "",
+    role: "user",
+  });
+  const [message, setMessage] = useState(null);
+  let timerID = useRef(null);
 
-  const register = () => {
-    axios({
-      method: "post",
-      data: {
-        username: registerUsername,
-        password: registerPassword,
-      },
-      withCredentials: true,
-      url: "http://localhost:4000/register",
-    }).then((res) => console.log(res));
+  useEffect(() => {
+    return () => {
+      clearTimeout(timerID);
+    };
+  }, []);
+
+  const onChange = (event) => {
+    setUser({ ...user, [event.target.name]: event.target.value });
   };
 
-  const login = () => {};
-  const getUser = () => {};
+  const resetForm = () => {
+    setUser({ username: "", password: "", role: "" });
+  };
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    AuthService.register(user).then((data) => {
+      // const { isAuthenticated, user, message } = data;
+      // if (isAuthenticated) {
+      //   authContext.setUser(user);
+      //   authContext.setIsAuthenticated(isAuthenticated);
+      //   props.history.push("/app/dashboard");
+      // } else setMessage(message);
+      const { message } = data;
+      setMessage(message);
+      resetForm();
+      if (!message.msgError) {
+        timerID = setTimeout(() => {
+          props.history.push("/login");
+        }, 1000);
+        alert("Account created. Redirecting to the login page");
+      }
+    });
+  };
 
   return (
     <div className="flex items-center min-h-screen p-6 bg-gray-50 dark:bg-gray-900">
@@ -47,77 +72,37 @@ function Login() {
           </div>
           <main className="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
             <div className="w-full">
-              <h1 className="mb-4 text-xl font-semibold text-gray-700 dark:text-gray-200">
-                Create account
-              </h1>
-              <Label>
-                <span>Email</span>
-                <Input
-                  className="mt-1"
-                  type="email"
-                  placeholder="john@doe.com"
-                  onChange={(event) => {
-                    setRegisterUsername(event.target.value);
-                    console.log(event.target.value);
-                  }}
-                />
-              </Label>
-              <Label className="mt-4">
-                <span>Password</span>
-                <Input
-                  className="mt-1"
-                  placeholder="***************"
-                  type="password"
-                  onChange={(event) => setRegisterPassword(event.target.value)}
-                />
-              </Label>
-              <Label className="mt-4">
-                <span>Confirm password</span>
-                <Input
-                  className="mt-1"
-                  placeholder="***************"
-                  type="password"
-                />
-              </Label>
+              <form onSubmit={onSubmit}>
+                <h1 className="mb-4 text-xl font-semibold text-gray-700 dark:text-gray-200">
+                  Create Account
+                </h1>
+                <Label htmlFor="username">
+                  <span>Username</span>
+                  <Input
+                    className="mt-1"
+                    type="text"
+                    placeholder="Username"
+                    name="username"
+                    onChange={onChange}
+                  />
+                </Label>
 
-              <Label className="mt-6" check>
-                <Input type="checkbox" />
-                <span className="ml-2">
-                  I agree to the{" "}
-                  <span className="underline">privacy policy</span>
-                </span>
-              </Label>
+                <Label className="mt-4" htmlFor="password">
+                  <span>Password</span>
+                  <Input
+                    className="mt-1"
+                    type="password"
+                    placeholder="**********"
+                    name="password"
+                    onChange={onChange}
+                  />
+                </Label>
 
-              <Button
-                onClick={register}
-                tag={Link}
-                to="/login"
-                block
-                className="mt-4"
-              >
-                Create account
-              </Button>
-
-              <Button
-                // tag={Link} to="/login"
-                block
-                className="mt-4"
-                onClick={getUser}
-              >
-                Get user
-              </Button>
-
+                <Button className="mt-4" block type="submit">
+                  Log in
+                </Button>
+              </form>
               <hr className="my-8" />
-              {/* 
-              <Button block layout="outline">
-                <GithubIcon className="w-4 h-4 mr-2" aria-hidden="true" />
-                Github
-              </Button>
-              <Button block className="mt-4" layout="outline">
-                <TwitterIcon className="w-4 h-4 mr-2" aria-hidden="true" />
-                Twitter
-              </Button> */}
-
               <p className="mt-4">
                 <Link
                   className="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline"
@@ -134,4 +119,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;

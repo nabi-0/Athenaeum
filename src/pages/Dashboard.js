@@ -29,7 +29,7 @@ import {
   lineLegends,
 } from "../utils/demo/chartsData";
 
-function Dashboard() {
+function Dashboard(props) {
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
 

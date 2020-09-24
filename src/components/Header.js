@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Button } from "@windmill/react-ui";
-import { Link } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import AuthService from "../Services/AuthService";
 import { AuthContext } from "../context/AuthContext";
 import { SidebarContext } from "../context/SidebarContext";
@@ -56,9 +56,10 @@ function Header(props) {
       if (data.success) {
         setUser(data.user);
         setIsAuthenticated(false);
+        alert("Successfully logged out.");
         console.log("user logged out");
       } else {
-        console.log("test");
+        console.log("logout failed for some reason");
       }
     });
   };
@@ -170,13 +171,15 @@ function Header(props) {
                 <OutlineCogIcon className="w-4 h-4 mr-3" aria-hidden="true" />
                 <span>Settings</span>
               </DropdownItem>
-              <DropdownItem onClick={onClickLogoutHandler}>
-                <OutlineLogoutIcon
-                  className="w-4 h-4 mr-3"
-                  aria-hidden="true"
-                />
-                <span>Log out</span>
-              </DropdownItem>
+              <Link to="/login">
+                <DropdownItem onClick={onClickLogoutHandler}>
+                  <OutlineLogoutIcon
+                    className="w-4 h-4 mr-3"
+                    aria-hidden="true"
+                  />
+                  <span>Log out</span>
+                </DropdownItem>
+              </Link>
             </Dropdown>
           </li>
         </ul>

@@ -15,9 +15,9 @@ function Login(props) {
   const authContext = useContext(AuthContext);
 
   const onChange = (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     setUser({ ...user, [event.target.name]: event.target.value });
-    console.log(user);
+    // console.log(user);
   };
 
   const onSubmit = (event) => {
@@ -102,14 +102,14 @@ function Login(props) {
                 Twitter
               </Button> */}
 
-              <p className="mt-4">
+              {/* <p className="mt-4">
                 <Link
                   className="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline"
                   to="/forgot-password"
                 >
                   Forgot your password?
                 </Link>
-              </p>
+              </p> */}
               <p className="mt-1">
                 <Link
                   className="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline"
