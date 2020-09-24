@@ -54,7 +54,7 @@ function Dashboard(props) {
 
   return (
     <>
-      <PageTitle>{user.username}'s Dashboard</PageTitle>
+      <PageTitle>Dashboard</PageTitle>
 
       <CTA />
 
@@ -78,16 +78,16 @@ function Dashboard(props) {
           />
         </InfoCard>
 
-        <InfoCard title="Cart" value="3">
+        {/* <InfoCard title="Cart" value="3">
           <RoundIcon
             icon={CartIcon}
             iconColorClass="text-blue-500 dark:text-blue-100"
             bgColorClass="bg-blue-100 dark:bg-blue-500"
             className="mr-4"
           />
-        </InfoCard>
+        </InfoCard> */}
 
-        <InfoCard title="Messages" value="7">
+        <InfoCard title="Unread Messages" value="2">
           <RoundIcon
             icon={ChatIcon}
             iconColorClass="text-teal-500 dark:text-teal-100"
@@ -150,13 +150,13 @@ function Dashboard(props) {
         </TableFooter>
       </TableContainer>
 
-      <PageTitle>Account Data</PageTitle>
+      {/* <PageTitle>Account Data</PageTitle>
       <div className="grid gap-6 mb-8 md:grid-cols-2">
         <ChartCard title="Traffic (marketplace views)">
           <Line {...lineOptions} />
           <ChartLegend legends={lineLegends} />
         </ChartCard>
-      </div>
+      </div> */}
     </>
   );
 }

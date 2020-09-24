@@ -78,6 +78,12 @@ function Header(props) {
   return (
     <header className="z-40 py-4 bg-white shadow-bottom dark:bg-gray-800">
       <div className="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300">
+        <Link
+          className="ml-6 text-lg text-gray-500 dark:text-gray-200"
+          to="/app/mypage"
+        >
+          {user.username}
+        </Link>
         {/* <!-- Mobile hamburger --> */}
         <button
           className="p-1 mr-5 -ml-1 rounded-md lg:hidden focus:outline-none focus:shadow-outline-purple"
@@ -142,7 +148,11 @@ function Header(props) {
               isOpen={isNotificationsMenuOpen}
               onClose={() => setIsNotificationsMenuOpen(false)}
             >
-              <DropdownItem tag="a" href="#" className="justify-between">
+              <DropdownItem
+                tag="a"
+                href="/app/messages"
+                className="justify-between"
+              >
                 <span>Messages</span>
                 <Badge type="danger">13</Badge>
               </DropdownItem>

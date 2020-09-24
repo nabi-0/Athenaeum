@@ -21,17 +21,16 @@ const routes = [
     icon: "CardsIcon",
     name: "Watchlist",
   },
-  {
-    path: "/app/popular",
-    icon: "ChartsIcon",
-    name: "Popular Items",
-  },
+  // {
+  //   path: "/app/popular",
+  //   icon: "ChartsIcon",
+  //   name: "Popular Items",
+  // },
   {
     path: "/app/discover",
     icon: "ButtonsIcon",
     name: "Discover",
   },
-
   {
     icon: "PagesIcon",
     name: "Account Services",

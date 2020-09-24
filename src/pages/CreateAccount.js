@@ -101,7 +101,7 @@ function Register(props) {
                 </Label>
 
                 <Button className="mt-4" block type="submit">
-                  Log in
+                  Create Account
                 </Button>
               </form>
               <hr className="my-8" />

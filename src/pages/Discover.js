@@ -50,56 +50,17 @@ function Discover(props) {
 
   return (
     <>
-      <PageTitle>Discover New Items</PageTitle>
+      <PageTitle>Discover New Items (New Items Daily)</PageTitle>
 
       <CTA />
-
-      {/* <!-- Cards --> */}
-      <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-        <InfoCard title="Watched Authors" value="11">
-          <RoundIcon
-            icon={PeopleIcon}
-            iconColorClass="text-orange-500 dark:text-orange-100"
-            bgColorClass="bg-orange-100 dark:bg-orange-500"
-            className="mr-4"
-          />
-        </InfoCard>
-
-        <InfoCard title="Book Wishlist" value="21">
-          <RoundIcon
-            icon={MoneyIcon}
-            iconColorClass="text-green-500 dark:text-green-100"
-            bgColorClass="bg-green-100 dark:bg-green-500"
-            className="mr-4"
-          />
-        </InfoCard>
-
-        <InfoCard title="Cart" value="3">
-          <RoundIcon
-            icon={CartIcon}
-            iconColorClass="text-blue-500 dark:text-blue-100"
-            bgColorClass="bg-blue-100 dark:bg-blue-500"
-            className="mr-4"
-          />
-        </InfoCard>
-
-        <InfoCard title="Messages" value="7">
-          <RoundIcon
-            icon={ChatIcon}
-            iconColorClass="text-teal-500 dark:text-teal-100"
-            bgColorClass="bg-teal-100 dark:bg-teal-500"
-            className="mr-4"
-          />
-        </InfoCard>
-      </div>
 
       <TableContainer>
         <Table>
           <TableHeader>
             <tr>
               <TableCell>Book Name</TableCell>
-              <TableCell>Price</TableCell>
-              <TableCell>Status</TableCell>
+              <TableCell></TableCell>
+              <TableCell></TableCell>
               <TableCell>Date Added</TableCell>
             </tr>
           </TableHeader>
@@ -122,10 +83,10 @@ function Discover(props) {
                   </div>
                 </TableCell>
                 <TableCell>
-                  <span className="text-sm">$ {user.amount}</span>
+                  <span className="text-sm"></span>
                 </TableCell>
                 <TableCell>
-                  <Badge type={user.status}>{user.status}</Badge>
+                  <Badge type={user.status}></Badge>
                 </TableCell>
                 <TableCell>
                   <span className="text-sm">
@@ -145,14 +106,6 @@ function Discover(props) {
           />
         </TableFooter>
       </TableContainer>
-
-      <PageTitle>Account Data</PageTitle>
-      <div className="grid gap-6 mb-8 md:grid-cols-2">
-        <ChartCard title="Traffic (marketplace views)">
-          <Line {...lineOptions} />
-          <ChartLegend legends={lineLegends} />
-        </ChartCard>
-      </div>
     </>
   );
 }

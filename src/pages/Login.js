@@ -115,7 +115,7 @@ function Login(props) {
                   className="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline"
                   to="/create-account"
                 >
-                  Create account
+                  Don't have an account? Create account
                 </Link>
               </p>
             </div>
