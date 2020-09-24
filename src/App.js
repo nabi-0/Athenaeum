@@ -21,6 +21,10 @@ function App() {
   // );
   // console.log(user);
   // console.log(isAuthenticated);
+  const { isAuthenticated, user, setIsAuthenticated, setUser } = useContext(
+    AuthContext
+  );
+
   return (
     <>
       <Router>
