@@ -3,6 +3,7 @@ import { Button } from "@windmill/react-ui";
 import { Link, Redirect, useHistory } from "react-router-dom";
 import AuthService from "../Services/AuthService";
 import { AuthContext } from "../context/AuthContext";
+import { SearchContext } from "../context/SearchContext";
 import API from "../utils/API";
 import { SidebarContext } from "../context/SidebarContext";
 import {
@@ -24,6 +25,8 @@ import {
   WindmillContext,
 } from "@windmill/react-ui";
 import { authenticate } from "passport";
+import { set } from "mongoose";
+// import e from "express";
 
 function Header(props) {
   const { mode, toggleMode } = useContext(WindmillContext);
@@ -31,8 +34,6 @@ function Header(props) {
 
   const [isNotificationsMenuOpen, setIsNotificationsMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
-
-  const [title, setTitle] = useState("");
 
   function handleNotificationsClick() {
     setIsNotificationsMenuOpen(!isNotificationsMenuOpen);
@@ -46,13 +47,7 @@ function Header(props) {
     AuthContext
   );
 
-  const unauthenticatedNavBar = () => {
-    return <Button disabled>You are not logged in</Button>;
-  };
-
-  const authenticatedNavBar = () => {
-    return <Button disabled>You are successfully logged in</Button>;
-  };
+  const [title, setTitle] = useState("");
 
   const onClickLogoutHandler = () => {
     AuthService.logout().then((data) => {
@@ -66,13 +61,37 @@ function Header(props) {
       }
     });
   };
-  // function Search(props) {
-  //   const [title, setTitle] = useState("");
-  const submitHandler = (event) => {
+
+  let results = "";
+
+  const [newTitle, setNewTitle] = useState("");
+  const [newAuthor, setNewAuthor] = useState("");
+  const [search, setSearch] = useContext(SearchContext);
+
+  const searchSubmitHandler = (event) => {
     event.preventDefault();
     API.SearchBooks(title)
-      .then((res) => props.setResults(res.data.items))
+      .then((res) => {
+        setTimeout(() => {
+          console.log("items vvvvv");
+          console.log(res.data.items);
+          console.log(res.data.items.volumeInfo);
+          console.log("items ^^^^^");
+          addBook(res.data.items);
+        }, 1000);
+        // console.log(res.data.items);
+        // console.log("vvvvvv");
+        // console.log(res.data.items);
+        // console.log("^^^^^^");
+      })
       .catch((err) => console.log(err));
+  };
+
+  const addBook = (data) => {
+    setSearch(data);
+    // console.log("above search");
+    // console.log(search);
+    // console.log("below search");
   };
 
   return (
@@ -101,7 +120,7 @@ function Header(props) {
             <div className="absolute inset-y-0 flex items-center pl-2">
               <SearchIcon className="w-4 h-4" aria-hidden="true" />
             </div>
-            <form onSubmit={submitHandler}>
+            <form onSubmit={searchSubmitHandler}>
               <Input
                 onChange={(event) => setTitle(event.target.value)}
                 value={title}

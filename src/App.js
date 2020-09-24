@@ -1,5 +1,6 @@
 import React, { lazy, useContext, useState } from "react";
 import { AuthContext } from "./context/AuthContext";
+import { SearchProvider } from "./context/SearchContext";
 import AuthService from "./Services/AuthService";
 // import Message from "./components/Message";
 import {

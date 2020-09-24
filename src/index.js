@@ -7,6 +7,7 @@ import ThemedSuspense from "./components/ThemedSuspense";
 import { Windmill } from "@windmill/react-ui";
 import * as serviceWorker from "./serviceWorker";
 import AuthProvider from "./context/AuthContext";
+import { SearchProvider } from "./context/SearchContext";
 
 // if (process.env.NODE_ENV !== 'production') {
 //   const axe = require('react-axe')
@@ -14,15 +15,17 @@ import AuthProvider from "./context/AuthContext";
 // }
 
 ReactDOM.render(
-  <AuthProvider>
-    <SidebarProvider>
-      <Suspense fallback={<ThemedSuspense />}>
-        <Windmill usePreferences>
-          <App />
-        </Windmill>
-      </Suspense>
-    </SidebarProvider>
-  </AuthProvider>,
+  <SearchProvider>
+    <AuthProvider>
+      <SidebarProvider>
+        <Suspense fallback={<ThemedSuspense />}>
+          <Windmill usePreferences>
+            <App />
+          </Windmill>
+        </Suspense>
+      </SidebarProvider>
+    </AuthProvider>
+  </SearchProvider>,
   document.getElementById("root")
 );
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
+import { SearchContext } from "../context/SearchContext";
 import CTA from "../components/CTA";
 import InfoCard from "../components/Cards/InfoCard";
 import ChartCard from "../components/Chart/ChartCard";
@@ -35,7 +36,7 @@ function Dashboard(props) {
 
   // pagination setup
   const resultsPerPage = 10;
-  const totalResults = response.length;
+  const totalResults = 0;
 
   // pagination change control
   function onPageChange(p) {
@@ -52,9 +53,14 @@ function Dashboard(props) {
     AuthContext
   );
 
+  const [search, setSearch] = useContext(SearchContext);
+  console.log("vvvvv");
+  console.log(search);
+  console.log("^^^^^");
+
   return (
     <>
-      <PageTitle>Dashboard</PageTitle>
+      <PageTitle>Dashboard </PageTitle>
 
       <CTA />
 
@@ -102,23 +108,23 @@ function Dashboard(props) {
           <TableHeader>
             <tr>
               <TableCell>Book Name</TableCell>
-              <TableCell>Price</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell>Date Added</TableCell>
+              <TableCell>Author</TableCell>
+              <TableCell>Published Date</TableCell>
+              <TableCell>Add to list(s)?</TableCell>
             </tr>
           </TableHeader>
           <TableBody>
-            {data.map((user, i) => (
+            {search.map((data, i) => (
               <TableRow key={i}>
                 <TableCell>
                   <div className="flex items-center text-sm">
                     <Avatar
                       className="hidden mr-3 md:block"
-                      src={user.avatar}
-                      alt="User image"
+                      src={data.image}
+                      alt=""
                     />
                     <div>
-                      <p className="font-semibold">{user.name}</p>
+                      <p className="font-semibold">{data.volumeInfo.title}</p>
                       <p className="text-xs text-gray-600 dark:text-gray-400">
                         {user.job}
                       </p>
@@ -126,15 +132,17 @@ function Dashboard(props) {
                   </div>
                 </TableCell>
                 <TableCell>
-                  <span className="text-sm">$ {user.amount}</span>
+                  <span className="text-sm">{data.volumeInfo.authors[0]}</span>
                 </TableCell>
                 <TableCell>
-                  <Badge type={user.status}>{user.status}</Badge>
+                  <Badge type={user.status}>
+                    {data.volumeInfo.publishedDate}
+                  </Badge>
                 </TableCell>
                 <TableCell>
-                  <span className="text-sm">
-                    {new Date(user.date).toLocaleDateString()}
-                  </span>
+                  <button class="bg-purple-400 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full">
+                    Add
+                  </button>
                 </TableCell>
               </TableRow>
             ))}
