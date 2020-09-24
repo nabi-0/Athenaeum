@@ -80,6 +80,7 @@ function Register(props) {
                   <span>Username</span>
                   <Input
                     className="mt-1"
+                    value={user.username}
                     type="text"
                     placeholder="Username"
                     name="username"
@@ -91,6 +92,7 @@ function Register(props) {
                   <span>Password</span>
                   <Input
                     className="mt-1"
+                    value={user.password}
                     type="password"
                     placeholder="**********"
                     name="password"
