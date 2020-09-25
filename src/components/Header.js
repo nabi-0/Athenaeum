@@ -73,25 +73,14 @@ function Header(props) {
     API.SearchBooks(title)
       .then((res) => {
         setTimeout(() => {
-          console.log("items vvvvv");
-          console.log(res.data.items);
-          console.log(res.data.items.volumeInfo);
-          console.log("items ^^^^^");
           addBook(res.data.items);
-        }, 1000);
-        // console.log(res.data.items);
-        // console.log("vvvvvv");
-        // console.log(res.data.items);
-        // console.log("^^^^^^");
+        }, 500);
       })
       .catch((err) => console.log(err));
   };
 
   const addBook = (data) => {
     setSearch(data);
-    // console.log("above search");
-    // console.log(search);
-    // console.log("below search");
   };
 
   return (

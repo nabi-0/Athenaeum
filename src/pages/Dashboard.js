@@ -54,9 +54,6 @@ function Dashboard(props) {
   );
 
   const [search, setSearch] = useContext(SearchContext);
-  console.log("vvvvv");
-  console.log(search);
-  console.log("^^^^^");
 
   return (
     <>
@@ -140,7 +137,7 @@ function Dashboard(props) {
                   </Badge>
                 </TableCell>
                 <TableCell>
-                  <button class="bg-purple-400 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full">
+                  <button className="bg-purple-400 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full">
                     Add
                   </button>
                 </TableCell>

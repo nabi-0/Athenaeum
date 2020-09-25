@@ -19,7 +19,7 @@ const UserSchema = new mongoose.Schema({
     enum: ["user", "admin"],
     required: true,
   },
-  todos: [{ type: mongoose.Schema.Types.ObjectId, ref: "Todo" }],
+  books: [{ type: mongoose.Schema.Types.ObjectId, ref: "Book" }],
 });
 
 UserSchema.plugin(uniqueValidator);
