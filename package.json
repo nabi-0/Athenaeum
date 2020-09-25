@@ -1,6 +1,7 @@
 {
   "name": "athenaeum",
   "version": "0.4.0",
+  "main": "server.js",
   "description": "A multi theme, completely accessible, with components and pages examples, (almost) ready for production dashboard.",
   "private": true,
   "scripts": {
@@ -21,13 +22,28 @@
     "@testing-library/user-event": "7.2.1",
     "@windmill/react-ui": "0.3.1",
     "axios": "^0.20.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
     "chart.js": "2.9.3",
     "classnames": "2.2.6",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
     "faker": "4.1.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.10.6",
+    "mongoose-unique-validator": "^2.0.3",
+    "morgan": "^1.10.0",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
     "react": "^16.13.1",
     "react-chartjs-2": "2.9.0",
     "react-dom": "^16.13.1",
     "react-focus-lock": "2.4.0",
+    "react-router": "^5.2.0",
     "react-router-dom": "5.2.0",
     "react-scripts": "^3.4.3",
     "react-transition-group": "4.4.1"
@@ -85,5 +101,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "proxy": "http://localhost:5000"
 }

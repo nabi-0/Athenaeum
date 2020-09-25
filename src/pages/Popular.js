@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
-import { SearchContext } from "../context/SearchContext";
+import React, { useState, useEffect } from "react";
+
 import CTA from "../components/CTA";
 import InfoCard from "../components/Cards/InfoCard";
 import ChartCard from "../components/Chart/ChartCard";
@@ -30,13 +29,13 @@ import {
   lineLegends,
 } from "../utils/demo/chartsData";
 
-function Dashboard(props) {
+function Popular(props) {
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
 
   // pagination setup
   const resultsPerPage = 10;
-  const totalResults = 0;
+  const totalResults = response.length;
 
   // pagination change control
   function onPageChange(p) {
@@ -49,15 +48,9 @@ function Dashboard(props) {
     setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
   }, [page]);
 
-  const { isAuthenticated, user, setIsAuthenticated, setUser } = useContext(
-    AuthContext
-  );
-
-  const [search, setSearch] = useContext(SearchContext);
-
   return (
     <>
-      <PageTitle>Dashboard </PageTitle>
+      <PageTitle>Popular Items</PageTitle>
 
       <CTA />
 
@@ -81,16 +74,16 @@ function Dashboard(props) {
           />
         </InfoCard>
 
-        {/* <InfoCard title="Cart" value="3">
+        <InfoCard title="Cart" value="3">
           <RoundIcon
             icon={CartIcon}
             iconColorClass="text-blue-500 dark:text-blue-100"
             bgColorClass="bg-blue-100 dark:bg-blue-500"
             className="mr-4"
           />
-        </InfoCard> */}
+        </InfoCard>
 
-        <InfoCard title="Unread Messages" value="2">
+        <InfoCard title="Messages" value="7">
           <RoundIcon
             icon={ChatIcon}
             iconColorClass="text-teal-500 dark:text-teal-100"
@@ -105,23 +98,23 @@ function Dashboard(props) {
           <TableHeader>
             <tr>
               <TableCell>Book Name</TableCell>
-              <TableCell>Author</TableCell>
-              <TableCell>Published Date</TableCell>
-              <TableCell>Add to list(s)?</TableCell>
+              <TableCell>Price</TableCell>
+              <TableCell>Status</TableCell>
+              <TableCell>Date Added</TableCell>
             </tr>
           </TableHeader>
           <TableBody>
-            {search.map((data, i) => (
+            {data.map((user, i) => (
               <TableRow key={i}>
                 <TableCell>
                   <div className="flex items-center text-sm">
                     <Avatar
                       className="hidden mr-3 md:block"
-                      src={data.image}
-                      alt=""
+                      src={user.avatar}
+                      alt="User image"
                     />
                     <div>
-                      <p className="font-semibold">{data.volumeInfo.title}</p>
+                      <p className="font-semibold">{user.name}</p>
                       <p className="text-xs text-gray-600 dark:text-gray-400">
                         {user.job}
                       </p>
@@ -129,17 +122,15 @@ function Dashboard(props) {
                   </div>
                 </TableCell>
                 <TableCell>
-                  <span className="text-sm">{data.volumeInfo.authors[0]}</span>
+                  <span className="text-sm">$ {user.amount}</span>
                 </TableCell>
                 <TableCell>
-                  <Badge type={user.status}>
-                    {data.volumeInfo.publishedDate}
-                  </Badge>
+                  <Badge type={user.status}>{user.status}</Badge>
                 </TableCell>
                 <TableCell>
-                  <button className="bg-purple-400 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full">
-                    Add
-                  </button>
+                  <span className="text-sm">
+                    {new Date(user.date).toLocaleDateString()}
+                  </span>
                 </TableCell>
               </TableRow>
             ))}
@@ -155,15 +146,15 @@ function Dashboard(props) {
         </TableFooter>
       </TableContainer>
 
-      {/* <PageTitle>Account Data</PageTitle>
+      <PageTitle>Account Data</PageTitle>
       <div className="grid gap-6 mb-8 md:grid-cols-2">
         <ChartCard title="Traffic (marketplace views)">
           <Line {...lineOptions} />
           <ChartLegend legends={lineLegends} />
         </ChartCard>
-      </div> */}
+      </div>
     </>
   );
 }
 
-export default Dashboard;
+export default Popular;

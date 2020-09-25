@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import routes from "../../routes/sidebar";
 import { NavLink, Route } from "react-router-dom";
 import * as Icons from "../../icons";
 import SidebarSubmenu from "./SidebarSubmenu";
 import { Button } from "@windmill/react-ui";
+import { Link } from "react-router-dom";
+import AuthService from "../../Services/AuthService";
+import { AuthContext } from "../../context/AuthContext";
 
 function Icon({ icon, ...props }) {
   const Icon = Icons[icon];
@@ -11,14 +14,18 @@ function Icon({ icon, ...props }) {
 }
 
 function SidebarContent() {
+  const { isAuthenticated, user, setIsAuthenticated, setUser } = useContext(
+    AuthContext
+  );
+
   return (
     <div className="py-4 text-gray-500 dark:text-gray-400">
-      <a
+      <Link
         className="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200"
-        href="#"
+        to="/app/dashboard"
       >
         Athenaeum
-      </a>
+      </Link>
       <ul className="mt-6">
         {routes.map((route) =>
           route.routes ? (

@@ -1,4 +1,9 @@
 import React, { useContext, useState } from "react";
+import { Button } from "@windmill/react-ui";
+import { Link, Redirect, useHistory } from "react-router-dom";
+import AuthService from "../Services/AuthService";
+import { AuthContext } from "../context/AuthContext";
+import { SearchContext } from "../context/SearchContext";
 import API from "../utils/API";
 import { SidebarContext } from "../context/SidebarContext";
 import {
@@ -19,6 +24,9 @@ import {
   DropdownItem,
   WindmillContext,
 } from "@windmill/react-ui";
+import { authenticate } from "passport";
+import { set } from "mongoose";
+// import e from "express";
 
 function Header(props) {
   const { mode, toggleMode } = useContext(WindmillContext);
@@ -26,8 +34,6 @@ function Header(props) {
 
   const [isNotificationsMenuOpen, setIsNotificationsMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
-
-  const [title, setTitle] = useState("");
 
   function handleNotificationsClick() {
     setIsNotificationsMenuOpen(!isNotificationsMenuOpen);
@@ -37,18 +43,55 @@ function Header(props) {
     setIsProfileMenuOpen(!isProfileMenuOpen);
   }
 
-  // function Search(props) {
-  //   const [title, setTitle] = useState("");
-  const submitHandler = (event) => {
+  const { isAuthenticated, user, setIsAuthenticated, setUser } = useContext(
+    AuthContext
+  );
+
+  const [title, setTitle] = useState("");
+
+  const onClickLogoutHandler = () => {
+    AuthService.logout().then((data) => {
+      if (data.success) {
+        setUser(data.user);
+        setIsAuthenticated(false);
+        alert("Successfully logged out.");
+        console.log("user logged out");
+      } else {
+        console.log("logout failed for some reason");
+      }
+    });
+  };
+
+  let results = "";
+
+  const [newTitle, setNewTitle] = useState("");
+  const [newAuthor, setNewAuthor] = useState("");
+  const [search, setSearch] = useContext(SearchContext);
+
+  const searchSubmitHandler = (event) => {
     event.preventDefault();
     API.SearchBooks(title)
-      .then(res => props.setResults(res.data.items))
-      .catch(err => console.log(err));
-  }
+      .then((res) => {
+        setTimeout(() => {
+          addBook(res.data.items);
+        }, 500);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const addBook = (data) => {
+    setSearch(data);
+  };
 
   return (
     <header className="z-40 py-4 bg-white shadow-bottom dark:bg-gray-800">
       <div className="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300">
+        <Link
+          className="ml-6 text-lg text-gray-500 dark:text-gray-200"
+          to="/app/mypage"
+        >
+          {user.username}
+        </Link>
         {/* <!-- Mobile hamburger --> */}
         <button
           className="p-1 mr-5 -ml-1 rounded-md lg:hidden focus:outline-none focus:shadow-outline-purple"
@@ -57,14 +100,16 @@ function Header(props) {
         >
           <MenuIcon className="w-6 h-6" aria-hidden="true" />
         </button>
+        {/* <div>
+          {!isAuthenticated ? unauthenticatedNavBar() : authenticatedNavBar()}
+        </div> */}
         {/* <!-- Search input --> */}
         <div className="flex justify-center flex-1 lg:mr-32">
           <div className="relative w-full max-w-xl mr-6 focus-within:text-purple-500">
             <div className="absolute inset-y-0 flex items-center pl-2">
               <SearchIcon className="w-4 h-4" aria-hidden="true" />
             </div>
-            <form
-              onSubmit={submitHandler}>
+            <form onSubmit={searchSubmitHandler}>
               <Input
                 onChange={(event) => setTitle(event.target.value)}
                 value={title}
@@ -86,8 +131,8 @@ function Header(props) {
               {mode === "dark" ? (
                 <SunIcon className="w-5 h-5" aria-hidden="true" />
               ) : (
-                  <MoonIcon className="w-5 h-5" aria-hidden="true" />
-                )}
+                <MoonIcon className="w-5 h-5" aria-hidden="true" />
+              )}
             </button>
           </li>
           {/* <!-- Notifications menu --> */}
@@ -111,7 +156,11 @@ function Header(props) {
               isOpen={isNotificationsMenuOpen}
               onClose={() => setIsNotificationsMenuOpen(false)}
             >
-              <DropdownItem tag="a" href="#" className="justify-between">
+              <DropdownItem
+                tag="a"
+                href="/app/messages"
+                className="justify-between"
+              >
                 <span>Messages</span>
                 <Badge type="danger">13</Badge>
               </DropdownItem>
@@ -155,13 +204,15 @@ function Header(props) {
                 <OutlineCogIcon className="w-4 h-4 mr-3" aria-hidden="true" />
                 <span>Settings</span>
               </DropdownItem>
-              <DropdownItem onClick={() => alert("Log out!")}>
-                <OutlineLogoutIcon
-                  className="w-4 h-4 mr-3"
-                  aria-hidden="true"
-                />
-                <span>Log out</span>
-              </DropdownItem>
+              <Link to="/login">
+                <DropdownItem onClick={onClickLogoutHandler}>
+                  <OutlineLogoutIcon
+                    className="w-4 h-4 mr-3"
+                    aria-hidden="true"
+                  />
+                  <span>Log out</span>
+                </DropdownItem>
+              </Link>
             </Dropdown>
           </li>
         </ul>
