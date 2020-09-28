@@ -10,6 +10,7 @@ import PageTitle from "../components/Typography/PageTitle";
 import { ChatIcon, CartIcon, MoneyIcon, PeopleIcon } from "../icons";
 import RoundIcon from "../components/RoundIcon";
 import response from "../utils/demo/tableData";
+import BookService from "../Services/BookService";
 import {
   TableBody,
   TableContainer,
@@ -33,14 +34,20 @@ import {
 function Dashboard(props) {
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
-  console.log(data);
-  console.log("^^^^^^^");
-  // pagination setup
+  // console.log(data);
+  // console.log("^^^^^^^");
 
+  // pagination setup
   // pagination change control
   function onPageChange(p) {
     setPage(p);
   }
+
+  useEffect(() => {
+    BookService.getBooks().then((data) => {
+      setBooks(data.books);
+    });
+  }, []);
 
   // on page change, load new sliced data
   // here you would make another server request for new data
@@ -48,9 +55,13 @@ function Dashboard(props) {
     setData(data.slice((page - 1) * resultsPerPage, page * resultsPerPage));
   }, [page]);
 
-  const { isAuthenticated, user, setIsAuthenticated, setUser } = useContext(
-    AuthContext
-  );
+  const {
+    authContext,
+    isAuthenticated,
+    user,
+    setIsAuthenticated,
+    setUser,
+  } = useContext(AuthContext);
 
   const [search, setSearch] = useContext(SearchContext);
 
@@ -59,8 +70,42 @@ function Dashboard(props) {
 
   // console.log(search);
 
+  const [book, setBook] = useState({ title: "" });
+  const [books, setBooks] = useState([]);
+  const [message, setMessage] = useState(null);
+
   const addClick = (data) => {
-    console.log(data);
+    setBook({ title: data.volumeInfo.title });
+  };
+
+  useEffect(() => {
+    console.log(book.title);
+    if (book.title !== "") {
+      BookService.postBook(book);
+    }
+  }, [book]);
+
+  const onAdd = () => {
+    BookService.postBook(book).then((data) => {
+      const { message } = data;
+      resetForm();
+      if (!message.msgError) {
+        BookService.getBooks().then((getData) => {
+          setBooks(getData.books);
+          setMessage(message);
+        });
+      } else if (message.msgBody === "Unauthorized") {
+        setMessage(message);
+        authContext.setUser({ username: "", role: "" });
+        authContext.setIsAuthenticated(false);
+      } else {
+        setMessage(message);
+      }
+    });
+  };
+
+  const resetForm = () => {
+    setBook({ title: "" });
   };
 
   return (
