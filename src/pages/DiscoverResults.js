@@ -29,7 +29,7 @@ import {
   lineLegends,
 } from "../utils/demo/chartsData";
 
-function Discover(props) {
+function DiscoverResults(props) {
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
 
@@ -50,7 +50,10 @@ function Discover(props) {
 
   return (
     <>
-      <PageTitle>Discover</PageTitle>
+      <PageTitle>Discover New Items (New Items Daily)</PageTitle>
+
+      <CTA />
+
       <TableContainer>
         <Table>
           <TableHeader>
@@ -107,4 +110,4 @@ function Discover(props) {
   );
 }
 
-export default Discover;
+export default DiscoverResults;

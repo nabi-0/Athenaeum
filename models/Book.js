@@ -2,17 +2,24 @@ const mongoose = require("mongoose");
 // var uniqueValidator = require("mongoose-unique-validator");
 
 const BookSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: false,
-  },
-  author: {
-    type: String,
-    required: false,
-  },
   id: {
     type: Number,
     required: false,
+  },
+  title: {
+    type: String,
+    required: false,
+  },
+  authors: {
+    type: String,
+    // required: true,
+  },
+  description: String,
+  link: {
+    type: String,
+  },
+  thumbnail: {
+    type: String,
   },
 });
 
