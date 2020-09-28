@@ -33,10 +33,9 @@ import {
 function Dashboard(props) {
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
-
+  console.log(data);
+  console.log("^^^^^^^");
   // pagination setup
-  const resultsPerPage = 10;
-  const totalResults = 0;
 
   // pagination change control
   function onPageChange(p) {
@@ -46,7 +45,7 @@ function Dashboard(props) {
   // on page change, load new sliced data
   // here you would make another server request for new data
   useEffect(() => {
-    setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
+    setData(data.slice((page - 1) * resultsPerPage, page * resultsPerPage));
   }, [page]);
 
   const { isAuthenticated, user, setIsAuthenticated, setUser } = useContext(
@@ -54,6 +53,15 @@ function Dashboard(props) {
   );
 
   const [search, setSearch] = useContext(SearchContext);
+
+  const resultsPerPage = 25;
+  const totalResults = search.length;
+
+  // console.log(search);
+
+  const addClick = (data) => {
+    console.log(data);
+  };
 
   return (
     <>
@@ -117,7 +125,7 @@ function Dashboard(props) {
                   <div className="flex items-center text-sm">
                     <Avatar
                       className="hidden mr-3 md:block"
-                      src={data.image}
+                      src={data.volumeInfo.imageLinks.smallThumbnail}
                       alt=""
                     />
                     <div>
@@ -137,7 +145,12 @@ function Dashboard(props) {
                   </Badge>
                 </TableCell>
                 <TableCell>
-                  <button className="bg-purple-400 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full">
+                  <button
+                    className="bg-purple-400 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full"
+                    onClick={() => {
+                      addClick(data);
+                    }}
+                  >
                     Add
                   </button>
                 </TableCell>

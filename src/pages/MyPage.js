@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react";
-
+import React, { useState, useEffect, useContext } from "react";
+import BookItem from "./BookItem";
+import BookService from "../Services/BookService";
+import { AuthContext } from "../context/AuthContext";
 import CTA from "../components/CTA";
 import InfoCard from "../components/Cards/InfoCard";
 import ChartCard from "../components/Chart/ChartCard";
@@ -9,6 +11,8 @@ import PageTitle from "../components/Typography/PageTitle";
 import { ChatIcon, CartIcon, MoneyIcon, PeopleIcon } from "../icons";
 import RoundIcon from "../components/RoundIcon";
 import response from "../utils/demo/tableData";
+import Message from "../components/Message";
+
 import {
   TableBody,
   TableContainer,
@@ -33,8 +37,19 @@ function MyPage(props) {
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
 
+  const [book, setBook] = useState({ name: "" });
+  const [books, setBooks] = useState([]);
+  const [message, setMessage] = useState(null);
+  const authContext = useContext(AuthContext);
+
+  useEffect(() => {
+    BookService.getBooks().then((data) => {
+      setBooks(data.books);
+    });
+  }, []);
+
   // pagination setup
-  const resultsPerPage = 10;
+  const resultsPerPage = 15;
   const totalResults = response.length;
 
   // pagination change control
@@ -48,51 +63,106 @@ function MyPage(props) {
     setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
   }, [page]);
 
+  const onBookSubmit = (e) => {
+    e.preventDefault();
+    BookService.postBook(book).then((data) => {
+      const { message } = data;
+      resetForm();
+      if (!message.msgError) {
+        BookService.getBooks().then((getData) => {
+          setBooks(getData.books);
+          setMessage(message);
+        });
+      } else if (message.msgBody === "Unauthorized") {
+        setMessage(message);
+        authContext.setUser({ username: "", role: "" });
+        authContext.setIsAuthenticated(false);
+      } else {
+        setMessage(message);
+      }
+    });
+  };
+
+  const onBookChange = (e) => {
+    setBook({ title: e.target.value });
+  };
+  const onBookChangeAuthor = (e) => {
+    setBook({ author: e.target.value });
+  };
+
+  const resetForm = () => {
+    setBook({ title: "" });
+  };
+
   return (
     <>
       <PageTitle>My Page</PageTitle>
 
       <CTA />
 
+      {/* used for testing adding books to database */}
+      <div>
+        <ul>
+          {books.map((book) => {
+            return <BookItem key={book._id} book={book} />;
+          })}
+        </ul>
+        <br />
+        <form onSubmit={onBookSubmit}>
+          <label htmlFor="book">Enter Book</label> <br />
+          <input
+            type="text"
+            name="book"
+            value={book.title}
+            onChange={onBookChange}
+            className="form-control"
+            placeholder="Book title"
+          />
+          <br />
+          <button type="submit">Submit</button>
+        </form>
+        {message ? <Message message={message} /> : null}
+      </div>
+
       <div id="tableDiv">
-        <PageTitle>Watched Authors</PageTitle>
+        <PageTitle>Your Book List</PageTitle>
         <TableContainer>
           <Table>
             <TableHeader>
               <tr>
                 <TableCell>Book Name</TableCell>
-                <TableCell>Price</TableCell>
-                <TableCell>Status</TableCell>
-                <TableCell>Date Added</TableCell>
+                <TableCell>Author</TableCell>
+                <TableCell>Published Date</TableCell>
+                <TableCell>Actions</TableCell>
               </tr>
             </TableHeader>
             <TableBody>
-              {data.map((user, i) => (
+              {books.map((data, i) => (
                 <TableRow key={i}>
                   <TableCell>
                     <div className="flex items-center text-sm">
                       <Avatar
                         className="hidden mr-3 md:block"
-                        src={user.avatar}
+                        src={data.avatar}
                         alt="User image"
                       />
                       <div>
-                        <p className="font-semibold">{user.name}</p>
+                        <p className="font-semibold">{data.title}</p>
                         <p className="text-xs text-gray-600 dark:text-gray-400">
-                          {user.job}
+                          {data.job}
                         </p>
                       </div>
                     </div>
                   </TableCell>
                   <TableCell>
-                    <span className="text-sm">$ {user.amount}</span>
+                    <span className="text-sm">$ {data.amount}</span>
                   </TableCell>
                   <TableCell>
-                    <Badge type={user.status}>{user.status}</Badge>
+                    <Badge type={data.status}>{data.status}</Badge>
                   </TableCell>
                   <TableCell>
                     <span className="text-sm">
-                      {new Date(user.date).toLocaleDateString()}
+                      {new Date(data.date).toLocaleDateString()}
                     </span>
                   </TableCell>
                 </TableRow>

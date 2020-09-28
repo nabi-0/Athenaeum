@@ -59,7 +59,6 @@ function Header(props) {
           showConfirmButton: false,
           timer: 1000,
         });
-
         setUser(data.user);
         setIsAuthenticated(false);
         console.log("user logged out");
