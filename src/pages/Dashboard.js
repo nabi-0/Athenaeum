@@ -138,7 +138,7 @@ function Dashboard(props) {
       {/* <CTA /> */}
 
       {/* <!-- Cards --> */}
-      <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
+      {/* <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
         <InfoCard title="Watched Authors" value="11">
           <RoundIcon
             icon={PeopleIcon}
@@ -157,14 +157,14 @@ function Dashboard(props) {
           />
         </InfoCard>
 
-        {/* <InfoCard title="Cart" value="3">
+        <InfoCard title="Cart" value="3">
           <RoundIcon
             icon={CartIcon}
             iconColorClass="text-blue-500 dark:text-blue-100"
             bgColorClass="bg-blue-100 dark:bg-blue-500"
             className="mr-4"
           />
-        </InfoCard> */}
+        </InfoCard>
 
         <InfoCard title="Unread Messages" value="2">
           <RoundIcon
@@ -174,7 +174,7 @@ function Dashboard(props) {
             className="mr-4"
           />
         </InfoCard>
-      </div>
+      </div> */}
 
       <TableContainer>
         <Table>
