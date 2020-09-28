@@ -5,6 +5,7 @@ import AuthService from "../Services/AuthService";
 import { AuthContext } from "../context/AuthContext";
 import { SearchContext } from "../context/SearchContext";
 import API from "../utils/API";
+import Swal from "sweetalert2";
 import { SidebarContext } from "../context/SidebarContext";
 import {
   SearchIcon,
@@ -52,9 +53,15 @@ function Header(props) {
   const onClickLogoutHandler = () => {
     AuthService.logout().then((data) => {
       if (data.success) {
+        Swal.fire({
+          icon: "success",
+          title: "Successfully logged out",
+          showConfirmButton: false,
+          timer: 1000,
+        });
+
         setUser(data.user);
         setIsAuthenticated(false);
-        alert("Successfully logged out.");
         console.log("user logged out");
       } else {
         console.log("logout failed for some reason");
