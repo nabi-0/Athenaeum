@@ -115,6 +115,15 @@ function Dashboard(props) {
     }
   };
 
+  const authorsFunc = (data) => {
+    if ("authors" in data) {
+      if (data.authors.join(", ").length >= 30) {
+        return data.authors.join(", ").slice(0, 30) + "...";
+      }
+      return data.authors.join(", ");
+    }
+  };
+
   return (
     <>
       <PageTitle>Dashboard </PageTitle>
@@ -194,7 +203,7 @@ function Dashboard(props) {
                 </TableCell>
                 <TableCell>
                   <span className="text-sm">
-                    {data.volumeInfo.authors.join(", ")}
+                    {authorsFunc(data.volumeInfo)}
                   </span>
                 </TableCell>
                 <TableCell>
