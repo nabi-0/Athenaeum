@@ -50,7 +50,7 @@ function MyPage(props) {
 
   // pagination setup
   const resultsPerPage = 15;
-  const totalResults = response.length;
+  const totalResults = books.length;
 
   // pagination change control
   function onPageChange(p) {
@@ -101,7 +101,7 @@ function MyPage(props) {
       <CTA />
 
       {/* used for testing adding books to database */}
-      <div>
+      {/* <div>
         <ul>
           {books.map((book) => {
             return <BookItem key={book._id} book={book} />;
@@ -122,7 +122,7 @@ function MyPage(props) {
           <button type="submit">Submit</button>
         </form>
         {message ? <Message message={message} /> : null}
-      </div>
+      </div> */}
 
       <div id="tableDiv">
         <PageTitle>Your Book List</PageTitle>
@@ -131,7 +131,7 @@ function MyPage(props) {
             <TableHeader>
               <tr>
                 <TableCell>Book Name</TableCell>
-                <TableCell>Author</TableCell>
+                <TableCell>Author(s)</TableCell>
                 <TableCell>Published Date</TableCell>
                 <TableCell>Actions</TableCell>
               </tr>

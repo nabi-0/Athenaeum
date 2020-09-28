@@ -11,6 +11,7 @@ import { ChatIcon, CartIcon, MoneyIcon, PeopleIcon } from "../icons";
 import RoundIcon from "../components/RoundIcon";
 import response from "../utils/demo/tableData";
 import BookService from "../Services/BookService";
+import Swal from "sweetalert2";
 import {
   TableBody,
   TableContainer,
@@ -75,13 +76,21 @@ function Dashboard(props) {
   const [message, setMessage] = useState(null);
 
   const addClick = (data) => {
-    setBook({
-      title: data.volumeInfo.title,
-      authors: data.volumeInfo.authors[0],
-      description: data.volumeInfo.description,
-      thumbnail: data.volumeInfo.imageLinks.smallThumbnail,
+    Swal.fire({
+      icon: "success",
+      title: "Book added to your list",
+      text: "You can view your list at My Page",
+      showConfirmButton: false,
     });
-    // console.log(data.volumeInfo);
+    setTimeout(() => {
+      setBook({
+        title: data.volumeInfo.title,
+        authors: data.volumeInfo.authors.join(", "),
+        description: data.volumeInfo.description,
+        thumbnail: data.volumeInfo.imageLinks.smallThumbnail,
+      });
+      Swal.close();
+    }, 1500);
   };
 
   useEffect(() => {
@@ -110,7 +119,7 @@ function Dashboard(props) {
     <>
       <PageTitle>Dashboard </PageTitle>
 
-      <CTA />
+      {/* <CTA /> */}
 
       {/* <!-- Cards --> */}
       <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
