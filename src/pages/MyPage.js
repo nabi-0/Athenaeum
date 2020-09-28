@@ -94,6 +94,12 @@ function MyPage(props) {
     setBook({ title: "" });
   };
 
+  const actionClick = (book) => {
+    console.log(book._id);
+  };
+
+  console.log(books);
+
   return (
     <>
       <PageTitle>My Page</PageTitle>
@@ -132,7 +138,7 @@ function MyPage(props) {
               <tr>
                 <TableCell>Book Name</TableCell>
                 <TableCell>Author(s)</TableCell>
-                <TableCell>Published Date</TableCell>
+                {/* <TableCell>Published Date</TableCell> */}
                 <TableCell>Actions</TableCell>
               </tr>
             </TableHeader>
@@ -157,13 +163,18 @@ function MyPage(props) {
                   <TableCell>
                     <span className="text-sm">{book.authors}</span>
                   </TableCell>
-                  <TableCell>
+                  {/* <TableCell>
                     <Badge type={data.status}>{data.status}</Badge>
-                  </TableCell>
+                  </TableCell> */}
                   <TableCell>
-                    <span className="text-sm">
-                      {new Date(data.date).toLocaleDateString()}
-                    </span>
+                    <button
+                      className="bg-purple-400 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full"
+                      onClick={() => {
+                        actionClick(book);
+                      }}
+                    >
+                      ...
+                    </button>
                   </TableCell>
                 </TableRow>
               ))}
