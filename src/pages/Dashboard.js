@@ -117,11 +117,18 @@ function Dashboard(props) {
 
   const authorsFunc = (data) => {
     if ("authors" in data) {
-      if (data.authors.join(", ").length >= 30) {
-        return data.authors.join(", ").slice(0, 30) + "...";
+      if (data.authors.join(", ").length >= 40) {
+        return data.authors.join(", ").slice(0, 40) + "...";
       }
       return data.authors.join(", ");
     }
+  };
+
+  const titleFunc = (data) => {
+    if (data.title.length >= 60) {
+      return data.title.slice(0, 60) + "...";
+    }
+    return data.title;
   };
 
   return (
@@ -194,7 +201,9 @@ function Dashboard(props) {
                       alt=""
                     />
                     <div>
-                      <p className="font-semibold">{data.volumeInfo.title}</p>
+                      <p className="font-semibold">
+                        {titleFunc(data.volumeInfo)}
+                      </p>
                       <p className="text-xs text-gray-600 dark:text-gray-400">
                         {user.job}
                       </p>
