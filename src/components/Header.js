@@ -88,6 +88,7 @@ function Header(props) {
 
   const addBook = (data) => {
     setSearch(data);
+    console.log(search);
   };
 
   return (
@@ -116,7 +117,7 @@ function Header(props) {
             <div className="absolute inset-y-0 flex items-center pl-2">
               <SearchIcon className="w-4 h-4" aria-hidden="true" />
             </div>
-            <form onSubmit={searchSubmitHandler}>
+            <form onChange={searchSubmitHandler}>
               <Input
                 onChange={(event) => setTitle(event.target.value)}
                 value={title}
