@@ -75,7 +75,7 @@ userRouter.post(
   "/book",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    // const { title, authors, description, link, thumbnail } = req.body;
+    // const { title, authors, description, thumbnail } = req.body;
     const book = new Book(req.body);
     book.save((err) => {
       if (err) {

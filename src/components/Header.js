@@ -78,9 +78,10 @@ function Header(props) {
     event.preventDefault();
     API.SearchBooks(title)
       .then((res) => {
-        setTimeout(() => {
-          addBook(res.data.items);
-        }, 500);
+        // setTimeout(() => {
+        //   addBook(res.data.items);
+        // }, 500);
+        addBook(res.data.items);
       })
       .catch((err) => console.log(err));
   };

@@ -75,37 +75,35 @@ function Dashboard(props) {
   const [message, setMessage] = useState(null);
 
   const addClick = (data) => {
-    setBook({ title: data.volumeInfo.title });
+    setBook({
+      title: data.volumeInfo.title,
+      authors: data.volumeInfo.authors[0],
+      description: data.volumeInfo.description,
+      thumbnail: data.volumeInfo.imageLinks.smallThumbnail,
+    });
+    // console.log(data.volumeInfo);
   };
 
   useEffect(() => {
-    console.log(book.title);
+    console.log("new entry: ");
+    console.log(book);
     if (book.title !== "") {
-      BookService.postBook(book);
+      onAdd(book);
     }
   }, [book]);
 
   const onAdd = () => {
-    BookService.postBook(book).then((data) => {
-      const { message } = data;
-      resetForm();
-      if (!message.msgError) {
-        BookService.getBooks().then((getData) => {
-          setBooks(getData.books);
-          setMessage(message);
-        });
-      } else if (message.msgBody === "Unauthorized") {
-        setMessage(message);
-        authContext.setUser({ username: "", role: "" });
-        authContext.setIsAuthenticated(false);
-      } else {
-        setMessage(message);
-      }
-    });
+    BookService.postBook(book);
   };
 
   const resetForm = () => {
-    setBook({ title: "" });
+    setBook({ title: "", authors: "", description: "", thumbnail: "" });
+  };
+
+  const thumbnailFunc = (data) => {
+    if ("imageLinks" in data) {
+      return data.imageLinks.smallThumbnail;
+    }
   };
 
   return (
@@ -170,7 +168,11 @@ function Dashboard(props) {
                   <div className="flex items-center text-sm">
                     <Avatar
                       className="hidden mr-3 md:block"
-                      src={data.volumeInfo.imageLinks.smallThumbnail}
+                      src={
+                        thumbnailFunc(data.volumeInfo)
+                        // data.volumeInfo.imageLinks.smallThumbnail ||
+                        // data.volumeInfo.imageLinks.thumbnail
+                      }
                       alt=""
                     />
                     <div>
@@ -182,7 +184,9 @@ function Dashboard(props) {
                   </div>
                 </TableCell>
                 <TableCell>
-                  <span className="text-sm">{data.volumeInfo.authors[0]}</span>
+                  <span className="text-sm">
+                    {data.volumeInfo.authors.join(", ")}
+                  </span>
                 </TableCell>
                 <TableCell>
                   <Badge type={user.status}>

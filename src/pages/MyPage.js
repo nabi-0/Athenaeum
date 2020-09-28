@@ -137,25 +137,25 @@ function MyPage(props) {
               </tr>
             </TableHeader>
             <TableBody>
-              {books.map((data, i) => (
+              {books.map((book, i) => (
                 <TableRow key={i}>
                   <TableCell>
                     <div className="flex items-center text-sm">
                       <Avatar
                         className="hidden mr-3 md:block"
-                        src={data.avatar}
+                        src={book.thumbnail}
                         alt="User image"
                       />
                       <div>
-                        <p className="font-semibold">{data.title}</p>
+                        <p className="font-semibold">{book.title}</p>
                         <p className="text-xs text-gray-600 dark:text-gray-400">
-                          {data.job}
+                          {book.job}
                         </p>
                       </div>
                     </div>
                   </TableCell>
                   <TableCell>
-                    <span className="text-sm">$ {data.amount}</span>
+                    <span className="text-sm">{book.authors}</span>
                   </TableCell>
                   <TableCell>
                     <Badge type={data.status}>{data.status}</Badge>
