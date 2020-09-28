@@ -66,7 +66,7 @@ function Dashboard(props) {
 
   const [search, setSearch] = useContext(SearchContext);
 
-  const resultsPerPage = 25;
+  const resultsPerPage = 15;
   const totalResults = search.length;
 
   // console.log(search);

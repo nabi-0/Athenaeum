@@ -12,6 +12,7 @@ import { ChatIcon, CartIcon, MoneyIcon, PeopleIcon } from "../icons";
 import RoundIcon from "../components/RoundIcon";
 import response from "../utils/demo/tableData";
 import Message from "../components/Message";
+import Swal from "sweetalert2";
 
 import {
   TableBody,
@@ -95,7 +96,32 @@ function MyPage(props) {
   };
 
   const actionClick = (book) => {
-    console.log(book._id);
+    Swal.fire({
+      title: "What would you like to do?",
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: `Sell book`,
+      denyButtonText: `Remove from List`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          icon: "success",
+          title: "Redirecting...",
+        });
+      } else if (result.isDenied) {
+        Swal.fire({
+          icon: "warning",
+          title: "Are you sure?",
+          text: "You cannot undo this action.",
+          showConfirmButton: false,
+          showDenyButton: true,
+          showCancelButton: true,
+          denyButtonText: `Continue`,
+        }).then({
+          // code to delete from database and reload page goes here
+        });
+      }
+    });
   };
 
   console.log(books);

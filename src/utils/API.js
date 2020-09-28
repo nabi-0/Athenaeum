@@ -7,6 +7,6 @@ const BASEURL = "https://www.googleapis.com/books/v1/volumes?q=";
 //     return axios.get(BASEURL + query + APIKEY);
 export default {
   SearchBooks: function (title) {
-    return axios.get(BASEURL + title);
+    return axios.get(BASEURL + title + "&maxResults=40");
   },
 };
