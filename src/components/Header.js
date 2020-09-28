@@ -1,6 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Button } from "@windmill/react-ui";
-import { Link, Redirect, useHistory } from "react-router-dom";
+import { Link, Redirect, useHistory, useLocation } from "react-router-dom";
 import AuthService from "../Services/AuthService";
 import { AuthContext } from "../context/AuthContext";
 import { SearchContext } from "../context/SearchContext";
@@ -30,6 +30,8 @@ import { set } from "mongoose";
 // import e from "express";
 
 function Header(props) {
+  let location = useLocation();
+
   const { mode, toggleMode } = useContext(WindmillContext);
   const { toggleSidebar } = useContext(SidebarContext);
 
