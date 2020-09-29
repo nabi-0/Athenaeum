@@ -203,15 +203,15 @@ function Discover(props) {
                 {/* <TableCell>
                 </TableCell> */}
                 <TableCell>
-                  <p className="font-semibold">
-                    {titleFunc(data.volumeInfo)}
-                  </p>
-                  <p className="text-sm">
-                    {authorsFunc(data.volumeInfo)}
-                  </p><br />
+                  <p className="font-semibold">{titleFunc(data.volumeInfo)}</p>
+                  <p className="text-sm">{authorsFunc(data.volumeInfo)}</p>
+                  <br />
                   <div style={{ width: "600px", whiteSpace: "pre-wrap" }}>
                     <p className="text-xs text-gray-600 dark:text-gray-400">
-                      {data.volumeInfo.description?.slice(0, 500) + (data.volumeInfo.description?.length >= 500 ? "..." : " ")}
+                      {data.volumeInfo.description?.slice(0, 500) +
+                        (data.volumeInfo.description?.length >= 500
+                          ? "..."
+                          : " ")}
                     </p>
                   </div>
                 </TableCell>
