@@ -170,7 +170,6 @@ function Discover(props) {
           >
             Click to randomize results
           </button>
-          <PageTitle>Search Term: {randomQuery}</PageTitle>
         </div>
       </div>
       <TableContainer>
