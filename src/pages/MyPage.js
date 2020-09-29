@@ -130,7 +130,15 @@ function MyPage(props) {
 
   const deleteBookPls = (book) => {
     BookService.deleteBook(book._id);
-    window.location.reload();
+    let timerID = setTimeout(() => {
+      window.location.reload();
+      Swal.close();
+    }, 1000);
+    Swal.fire({
+      icon: "success",
+      title: "Deleting book...",
+      showConfirmButton: false,
+    }).then(timerID);
   };
 
   return (
