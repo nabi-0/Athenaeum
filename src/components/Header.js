@@ -141,8 +141,8 @@ function Header(props) {
               {mode === "dark" ? (
                 <SunIcon className="w-5 h-5" aria-hidden="true" />
               ) : (
-                  <MoonIcon className="w-5 h-5" aria-hidden="true" />
-                )}
+                <MoonIcon className="w-5 h-5" aria-hidden="true" />
+              )}
             </button>
           </li>
           {/* <!-- Notifications menu --> */}
@@ -203,13 +203,15 @@ function Header(props) {
               isOpen={isProfileMenuOpen}
               onClose={() => setIsProfileMenuOpen(false)}
             >
-              <DropdownItem tag="a" href="/app/mypage">
-                <OutlinePersonIcon
-                  className="w-4 h-4 mr-3"
-                  aria-hidden="true"
-                />
-                <span>Profile</span>
-              </DropdownItem>
+              <Link to="/app/mypage">
+                <DropdownItem>
+                  <OutlinePersonIcon
+                    className="w-4 h-4 mr-3"
+                    aria-hidden="true"
+                  />
+                  <span>Profile</span>
+                </DropdownItem>
+              </Link>
               {/* <DropdownItem tag="a" href="#">
                 <OutlineCogIcon className="w-4 h-4 mr-3" aria-hidden="true" />
                 <span>Settings</span>
