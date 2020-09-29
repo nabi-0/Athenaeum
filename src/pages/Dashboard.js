@@ -213,7 +213,7 @@ function Dashboard(props) {
                   <p className="text-sm">
                     {authorsFunc(data.volumeInfo)}
                   </p><br />
-                  <div style={{ width: "200px", whiteSpace: "pre-wrap" }}>
+                  <div style={{ width: "600px", whiteSpace: "pre-wrap" }}>
                     <p className="text-xs text-gray-600 dark:text-gray-400">
                       {data.volumeInfo.description?.slice(0, 500) + (data.volumeInfo.description?.length >= 500 ? "..." : " ")}
                     </p>
