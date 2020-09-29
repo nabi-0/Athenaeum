@@ -1,13 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import CTA from "../components/CTA";
-import InfoCard from "../components/Cards/InfoCard";
-import ChartCard from "../components/Chart/ChartCard";
-import { Doughnut, Line } from "react-chartjs-2";
-import ChartLegend from "../components/Chart/ChartLegend";
 import PageTitle from "../components/Typography/PageTitle";
-import { ChatIcon, CartIcon, MoneyIcon, PeopleIcon } from "../icons";
-import RoundIcon from "../components/RoundIcon";
 import response from "../utils/demo/tableData";
 import {
   TableBody,
@@ -22,20 +16,12 @@ import {
   Pagination,
 } from "@windmill/react-ui";
 
-import {
-  doughnutOptions,
-  lineOptions,
-  doughnutLegends,
-  lineLegends,
-} from "../utils/demo/chartsData";
-
 function Messages(props) {
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
 
   // pagination setup
   const resultsPerPage = 10;
-  const totalResults = response.length;
 
   // pagination change control
   function onPageChange(p) {
@@ -48,9 +34,7 @@ function Messages(props) {
     setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
   }, [page]);
 
-  const { isAuthenticated, user, setIsAuthenticated, setUser } = useContext(
-    AuthContext
-  );
+  const { user, setUser } = useContext(AuthContext);
 
   return (
     <>

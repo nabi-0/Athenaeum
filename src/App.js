@@ -1,4 +1,4 @@
-import React, { lazy, useContext, useState } from "react";
+import React, { lazy } from "react";
 import {
   HashRouter as Router, // had to switch BrowserRouter
   Switch,
@@ -19,12 +19,10 @@ function App() {
         <AccessibleNavigationAnnouncer />
         <Switch>
           <Redirect exact from="/" to="/login" />
-          {/* <Redirect exact from="/" to="/app" /> */}
           <Route path="/login" component={Login} />
           <Route path="/create-account" component={CreateAccount} />
           <Route path="/forgot-password" component={ForgotPassword} />
 
-          {/* Place new routes over this */}
           <Route path="/app" component={Layout} />
         </Switch>
       </Router>

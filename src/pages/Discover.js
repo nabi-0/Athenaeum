@@ -2,16 +2,8 @@ import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { SearchContext } from "../context/SearchContext";
 import randomWords from "random-words";
-import CTA from "../components/CTA";
-import InfoCard from "../components/Cards/InfoCard";
-import ChartCard from "../components/Chart/ChartCard";
-import { Doughnut, Line } from "react-chartjs-2";
-import ChartLegend from "../components/Chart/ChartLegend";
 import PageTitle from "../components/Typography/PageTitle";
-import { ChatIcon, CartIcon, MoneyIcon, PeopleIcon } from "../icons";
-import RoundIcon from "../components/RoundIcon";
 import API from "../utils/API";
-import response from "../utils/demo/tableData";
 import BookService from "../Services/BookService";
 import Swal from "sweetalert2";
 import {
@@ -22,24 +14,13 @@ import {
   TableCell,
   TableRow,
   TableFooter,
-  Avatar,
   Badge,
   Pagination,
 } from "@windmill/react-ui";
 
-import {
-  doughnutOptions,
-  lineOptions,
-  doughnutLegends,
-  lineLegends,
-} from "../utils/demo/chartsData";
-import { random } from "faker";
-
 function Discover(props) {
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
-  // console.log(data);
-  // console.log("^^^^^^^");
 
   // pagination setup
   // pagination change control
@@ -59,13 +40,7 @@ function Discover(props) {
     setData(data.slice((page - 1) * resultsPerPage, page * resultsPerPage));
   }, [page]);
 
-  const {
-    authContext,
-    isAuthenticated,
-    user,
-    setIsAuthenticated,
-    setUser,
-  } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
 
   const [search, setSearch] = useContext(SearchContext);
 
@@ -76,7 +51,6 @@ function Discover(props) {
 
   const [book, setBook] = useState({ title: "" });
   const [books, setBooks] = useState([]);
-  const [message, setMessage] = useState(null);
 
   const addClick = (data) => {
     Swal.fire({
@@ -104,10 +78,6 @@ function Discover(props) {
 
   const onAdd = () => {
     BookService.postBook(book);
-  };
-
-  const resetForm = () => {
-    setBook({ title: "", authors: "", description: "", thumbnail: "" });
   };
 
   const thumbnailFunc = (data) => {
@@ -144,9 +114,6 @@ function Discover(props) {
   const searchSubmitHandler = () => {
     API.SearchBooks(randomQuery)
       .then((res) => {
-        // setTimeout(() => {
-        //   addBook(res.data.items);
-        // }, 500);
         setSearch(res.data.items);
       })
       .catch((err) => console.log(err));
@@ -161,7 +128,6 @@ function Discover(props) {
             marginTop: "20px",
             marginLeft: "15px",
             width: "100%",
-            // border: "black 1px solid",
           }}
         >
           <button
@@ -177,7 +143,6 @@ function Discover(props) {
           <TableHeader>
             <tr>
               <TableCell>Book Cover</TableCell>
-              {/* <TableCell>Title</TableCell> */}
               <TableCell>Description</TableCell>
               <TableCell>Published Date</TableCell>
               <TableCell>Add to list(s)?</TableCell>
@@ -189,19 +154,12 @@ function Discover(props) {
                 <TableCell>
                   <div className="flex items-center text-sm">
                     <img
-                      // style={{ width: "200px", maxWidth: "200px" }}
                       className="hidden mr-3 md:block"
-                      src={
-                        thumbnailFunc(data.volumeInfo)
-                        // data.volumeInfo.imageLinks.smallThumbnail ||
-                        // data.volumeInfo.imageLinks.thumbnail
-                      }
+                      src={thumbnailFunc(data.volumeInfo)}
                       alt=""
                     />
                   </div>
                 </TableCell>
-                {/* <TableCell>
-                </TableCell> */}
                 <TableCell>
                   <p className="font-semibold">{titleFunc(data.volumeInfo)}</p>
                   <p className="text-sm">{authorsFunc(data.volumeInfo)}</p>
