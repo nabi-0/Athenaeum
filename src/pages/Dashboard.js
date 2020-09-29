@@ -133,7 +133,7 @@ function Dashboard(props) {
 
   return (
     <>
-      <PageTitle>Dashboard </PageTitle>
+      <PageTitle>Dashboard</PageTitle>
 
       {/* <CTA /> */}
 
@@ -180,8 +180,9 @@ function Dashboard(props) {
         <Table>
           <TableHeader>
             <tr>
-              <TableCell>Book Name</TableCell>
-              <TableCell>Author</TableCell>
+              <TableCell>Book Cover</TableCell>
+              {/* <TableCell>Title</TableCell> */}
+              <TableCell>Description</TableCell>
               <TableCell>Published Date</TableCell>
               <TableCell>Add to list(s)?</TableCell>
             </tr>
@@ -191,7 +192,8 @@ function Dashboard(props) {
               <TableRow key={i}>
                 <TableCell>
                   <div className="flex items-center text-sm">
-                    <Avatar
+                    <img
+                      // style={{ width: "200px", maxWidth: "200px" }}
                       className="hidden mr-3 md:block"
                       src={
                         thumbnailFunc(data.volumeInfo)
@@ -200,20 +202,22 @@ function Dashboard(props) {
                       }
                       alt=""
                     />
-                    <div>
-                      <p className="font-semibold">
-                        {titleFunc(data.volumeInfo)}
-                      </p>
-                      <p className="text-xs text-gray-600 dark:text-gray-400">
-                        {user.job}
-                      </p>
-                    </div>
                   </div>
                 </TableCell>
+                {/* <TableCell>
+                </TableCell> */}
                 <TableCell>
-                  <span className="text-sm">
+                  <p className="font-semibold">
+                    {titleFunc(data.volumeInfo)}
+                  </p>
+                  <p className="text-sm">
                     {authorsFunc(data.volumeInfo)}
-                  </span>
+                  </p><br />
+                  <div style={{ width: "200px", whiteSpace: "pre-wrap" }}>
+                    <p className="text-xs text-gray-600 dark:text-gray-400">
+                      {data.volumeInfo.description?.slice(0, 500) + (data.volumeInfo.description?.length >= 500 ? "..." : " ")}
+                    </p>
+                  </div>
                 </TableCell>
                 <TableCell>
                   <Badge type={user.status}>
