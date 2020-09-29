@@ -4,7 +4,7 @@ import { SearchProvider } from "./context/SearchContext";
 import AuthService from "./Services/AuthService";
 // import Message from "./components/Message";
 import {
-  BrowserRouter as Router,
+  HashRouter as Router, // had to switch BrowserRouter
   Switch,
   Route,
   Redirect,
