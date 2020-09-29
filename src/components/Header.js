@@ -97,7 +97,7 @@ function Header(props) {
     <header className="z-40 py-4 bg-white shadow-bottom dark:bg-gray-800">
       <div className="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300">
         <Link
-          className="ml-6 text-lg text-gray-500 dark:text-gray-200"
+          className="ml-6 mr-6 text-lg text-gray-500 dark:text-gray-200"
           to="/app/mypage"
         >
           {user.username}
@@ -141,8 +141,8 @@ function Header(props) {
               {mode === "dark" ? (
                 <SunIcon className="w-5 h-5" aria-hidden="true" />
               ) : (
-                <MoonIcon className="w-5 h-5" aria-hidden="true" />
-              )}
+                  <MoonIcon className="w-5 h-5" aria-hidden="true" />
+                )}
             </button>
           </li>
           {/* <!-- Notifications menu --> */}
