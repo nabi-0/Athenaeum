@@ -23,4 +23,19 @@ export default {
       } else return { message: { msgBody: "Unauthorized" }, msgError: true };
     });
   },
+  deleteBook: (bookID) => {
+    return fetch("/user/test/" + bookID, {
+      method: "delete",
+      // body: JSON.stringify(book),
+      // headers: {
+      //   "Content-Type": "application/json",
+      // },
+    }).then((response) => {
+      if (response.status != 401) {
+        return response.json().then((data) => {
+          return data; // think "return data" is needed
+        });
+      } else return { message: { msgBody: "Unauthorized" }, msgError: true };
+    });
+  },
 };

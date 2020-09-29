@@ -117,14 +117,29 @@ function MyPage(props) {
           showDenyButton: true,
           showCancelButton: true,
           denyButtonText: `Continue`,
-        }).then({
-          // code to delete from database and reload page goes here
+        }).then((result) => {
+          if (result.isDenied) {
+            deleteBookPls(book);
+          } else {
+            console.log("You didn't delete the book");
+          }
         });
       }
     });
   };
 
-  console.log(books);
+  const deleteBookPls = (book) => {
+    BookService.deleteBook(book._id);
+    let timerID = setTimeout(() => {
+      window.location.reload();
+      Swal.close();
+    }, 1000);
+    Swal.fire({
+      icon: "success",
+      title: "Deleting book...",
+      showConfirmButton: false,
+    }).then(timerID);
+  };
 
   return (
     <>

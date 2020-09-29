@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { SearchContext } from "../context/SearchContext";
-import randomWords from "random-words";
 import CTA from "../components/CTA";
 import InfoCard from "../components/Cards/InfoCard";
 import ChartCard from "../components/Chart/ChartCard";
@@ -10,7 +9,6 @@ import ChartLegend from "../components/Chart/ChartLegend";
 import PageTitle from "../components/Typography/PageTitle";
 import { ChatIcon, CartIcon, MoneyIcon, PeopleIcon } from "../icons";
 import RoundIcon from "../components/RoundIcon";
-import API from "../utils/API";
 import response from "../utils/demo/tableData";
 import BookService from "../Services/BookService";
 import Swal from "sweetalert2";
@@ -33,9 +31,8 @@ import {
   doughnutLegends,
   lineLegends,
 } from "../utils/demo/chartsData";
-import { random } from "faker";
 
-function Discover(props) {
+function Listings(props) {
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
   // console.log(data);
@@ -97,6 +94,8 @@ function Discover(props) {
   };
 
   useEffect(() => {
+    console.log("new entry: ");
+    console.log(book);
     if (book.title !== "") {
       onAdd(book);
     }
@@ -131,47 +130,52 @@ function Discover(props) {
     }
     return data.title;
   };
-  let randomQuery;
-
-  const randomFunc = () => {
-    randomQuery = `${randomWords()} ${randomWords()}`;
-    console.log(randomQuery);
-    setTimeout(() => {
-      searchSubmitHandler();
-    }, 500);
-  };
-
-  const searchSubmitHandler = () => {
-    API.SearchBooks(randomQuery)
-      .then((res) => {
-        // setTimeout(() => {
-        //   addBook(res.data.items);
-        // }, 500);
-        setSearch(res.data.items);
-      })
-      .catch((err) => console.log(err));
-  };
 
   return (
     <>
-      <div style={{ display: "flex" }}>
-        <PageTitle>Discover</PageTitle>
-        <div
-          style={{
-            marginTop: "20px",
-            marginLeft: "15px",
-            width: "100%",
-            // border: "black 1px solid",
-          }}
-        >
-          <button
-            onClick={randomFunc}
-            className="content-center bg-purple-500 hover:bg-blue-700 hover:bg-blue-300 text-white font-bold py-2 px-4 border-b-4 border-purple-700 hover:border-blue-500 rounded"
-          >
-            Click to randomize results
-          </button>
-        </div>
-      </div>
+      <PageTitle>Listings </PageTitle>
+
+      {/* <CTA /> */}
+
+      {/* <!-- Cards --> */}
+      {/* <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
+        <InfoCard title="Watched Authors" value="11">
+          <RoundIcon
+            icon={PeopleIcon}
+            iconColorClass="text-orange-500 dark:text-orange-100"
+            bgColorClass="bg-orange-100 dark:bg-orange-500"
+            className="mr-4"
+          />
+        </InfoCard>
+
+        <InfoCard title="Book Wishlist" value="21">
+          <RoundIcon
+            icon={MoneyIcon}
+            iconColorClass="text-green-500 dark:text-green-100"
+            bgColorClass="bg-green-100 dark:bg-green-500"
+            className="mr-4"
+          />
+        </InfoCard>
+
+        <InfoCard title="Cart" value="3">
+          <RoundIcon
+            icon={CartIcon}
+            iconColorClass="text-blue-500 dark:text-blue-100"
+            bgColorClass="bg-blue-100 dark:bg-blue-500"
+            className="mr-4"
+          />
+        </InfoCard>
+
+        <InfoCard title="Unread Messages" value="2">
+          <RoundIcon
+            icon={ChatIcon}
+            iconColorClass="text-teal-500 dark:text-teal-100"
+            bgColorClass="bg-teal-100 dark:bg-teal-500"
+            className="mr-4"
+          />
+        </InfoCard>
+      </div> */}
+
       <TableContainer>
         <Table>
           <TableHeader>
@@ -239,8 +243,16 @@ function Discover(props) {
           />
         </TableFooter>
       </TableContainer>
+
+      {/* <PageTitle>Account Data</PageTitle>
+      <div className="grid gap-6 mb-8 md:grid-cols-2">
+        <ChartCard title="Traffic (marketplace views)">
+          <Line {...lineOptions} />
+          <ChartLegend legends={lineLegends} />
+        </ChartCard>
+      </div> */}
     </>
   );
 }
 
-export default Discover;
+export default Listings;

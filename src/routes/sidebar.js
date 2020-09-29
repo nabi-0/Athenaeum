@@ -32,28 +32,29 @@ const routes = [
     name: "Discover",
   },
   {
+    path: "/app/listings",
+    name: "My Listings",
     icon: "PagesIcon",
-    name: "Account Services",
-    routes: [
-      // submenu
-      {
-        path: "/friends",
-        name: "Friends",
-      },
-      {
-        path: "/listings",
-        name: "My Listings",
-      },
-      {
-        path: "/user-info",
-        name: "User Info",
-      },
-      {
-        path: "/settings",
-        name: "Settings",
-      },
-    ],
   },
+  // {
+  //   icon: "PagesIcon",
+  //   name: "Account Services",
+  //   routes: [
+  //     submenu
+  //     {
+  //       path: "/friends",
+  //       name: "Friends",
+  //     },
+  //     {
+  //       path: "/user-info",
+  //       name: "User Info",
+  //     },
+  //     {
+  //       path: "/settings",
+  //       name: "Settings",
+  //     },
+  //   ],
+  // },
 ];
 
 export default routes;

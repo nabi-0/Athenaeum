@@ -15,6 +15,7 @@ const Watchlist = lazy(() => import("../pages/Watchlist"));
 const Popular = lazy(() => import("../pages/Popular"));
 const Discover = lazy(() => import("../pages/Discover"));
 const Messages = lazy(() => import("../pages/Messages"));
+const Listings = lazy(() => import("../pages/Listings"));
 
 /**
  * ⚠ These are internal routes!
@@ -50,6 +51,10 @@ const routes = [
   {
     path: "/messages", // the url
     component: Messages, // view rendered
+  },
+  {
+    path: "/listings", // the url
+    component: Listings, // view rendered
   },
   {
     path: "/forms",

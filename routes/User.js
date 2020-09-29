@@ -120,6 +120,15 @@ userRouter.get(
   }
 );
 
+userRouter.delete("/test/:id", (req, res) => {
+  Book.findByIdAndDelete({ _id: req.params.id })
+    .then((books) => res.send(books))
+    .catch((err) => {
+      res.status(400).json("Error: " + err);
+    });
+  // res.json(req.params.id);
+});
+
 userRouter.get(
   "/admin",
   passport.authenticate("jwt", { session: false }),
