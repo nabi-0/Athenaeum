@@ -141,8 +141,8 @@ function Header(props) {
               {mode === "dark" ? (
                 <SunIcon className="w-5 h-5" aria-hidden="true" />
               ) : (
-                <MoonIcon className="w-5 h-5" aria-hidden="true" />
-              )}
+                  <MoonIcon className="w-5 h-5" aria-hidden="true" />
+                )}
             </button>
           </li>
           {/* <!-- Notifications menu --> */}
