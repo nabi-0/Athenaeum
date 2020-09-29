@@ -1,10 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Button } from "@windmill/react-ui";
-import { Link, Redirect, useHistory } from "react-router-dom";
+import { Link, Redirect, useHistory, useLocation } from "react-router-dom";
 import AuthService from "../Services/AuthService";
 import { AuthContext } from "../context/AuthContext";
 import { SearchContext } from "../context/SearchContext";
 import API from "../utils/API";
+import Swal from "sweetalert2";
 import { SidebarContext } from "../context/SidebarContext";
 import {
   SearchIcon,
@@ -29,6 +30,8 @@ import { set } from "mongoose";
 // import e from "express";
 
 function Header(props) {
+  let location = useLocation();
+
   const { mode, toggleMode } = useContext(WindmillContext);
   const { toggleSidebar } = useContext(SidebarContext);
 
@@ -52,9 +55,14 @@ function Header(props) {
   const onClickLogoutHandler = () => {
     AuthService.logout().then((data) => {
       if (data.success) {
+        Swal.fire({
+          icon: "success",
+          title: "Successfully logged out",
+          showConfirmButton: false,
+          timer: 1000,
+        });
         setUser(data.user);
         setIsAuthenticated(false);
-        alert("Successfully logged out.");
         console.log("user logged out");
       } else {
         console.log("logout failed for some reason");
@@ -72,15 +80,17 @@ function Header(props) {
     event.preventDefault();
     API.SearchBooks(title)
       .then((res) => {
-        setTimeout(() => {
-          addBook(res.data.items);
-        }, 500);
+        // setTimeout(() => {
+        //   addBook(res.data.items);
+        // }, 500);
+        addBook(res.data.items);
       })
       .catch((err) => console.log(err));
   };
 
   const addBook = (data) => {
     setSearch(data);
+    console.log(search);
   };
 
   return (
@@ -109,7 +119,7 @@ function Header(props) {
             <div className="absolute inset-y-0 flex items-center pl-2">
               <SearchIcon className="w-4 h-4" aria-hidden="true" />
             </div>
-            <form onSubmit={searchSubmitHandler}>
+            <form onChange={searchSubmitHandler}>
               <Input
                 onChange={(event) => setTitle(event.target.value)}
                 value={title}

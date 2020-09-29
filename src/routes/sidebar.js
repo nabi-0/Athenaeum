@@ -16,11 +16,11 @@ const routes = [
     icon: "FormsIcon",
     name: "My Page",
   },
-  {
-    path: "/app/watchlist",
-    icon: "CardsIcon",
-    name: "Watchlist",
-  },
+  // {
+  //   path: "/app/watchlist",
+  //   icon: "CardsIcon",
+  //   name: "Watchlist",
+  // },
   // {
   //   path: "/app/popular",
   //   icon: "ChartsIcon",

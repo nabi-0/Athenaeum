@@ -7,6 +7,7 @@ import { GithubIcon, TwitterIcon } from "../icons";
 import { Input, Label, Button } from "@windmill/react-ui";
 import AuthService from "../Services/AuthService";
 import Message from "../components/Message";
+import Swal from "sweetalert2";
 
 function Register(props) {
   const [user, setUser] = useState({
@@ -44,10 +45,16 @@ function Register(props) {
       setMessage(message);
       resetForm();
       if (!message.msgError) {
+        Swal.fire({
+          icon: "success",
+          title: "Account Created",
+          text: "Redirecting to the login page...",
+          showConfirmButton: false,
+        });
         timerID = setTimeout(() => {
           props.history.push("/login");
-        }, 1000);
-        alert("Account created. Redirecting to the login page");
+          Swal.close();
+        }, 2000);
       }
     });
   };

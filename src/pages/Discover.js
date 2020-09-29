@@ -50,10 +50,7 @@ function Discover(props) {
 
   return (
     <>
-      <PageTitle>Discover New Items (New Items Daily)</PageTitle>
-
-      <CTA />
-
+      <PageTitle>Discover</PageTitle>
       <TableContainer>
         <Table>
           <TableHeader>

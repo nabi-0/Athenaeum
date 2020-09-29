@@ -10,6 +10,8 @@ import PageTitle from "../components/Typography/PageTitle";
 import { ChatIcon, CartIcon, MoneyIcon, PeopleIcon } from "../icons";
 import RoundIcon from "../components/RoundIcon";
 import response from "../utils/demo/tableData";
+import BookService from "../Services/BookService";
+import Swal from "sweetalert2";
 import {
   TableBody,
   TableContainer,
@@ -33,36 +35,110 @@ import {
 function Dashboard(props) {
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
+  // console.log(data);
+  // console.log("^^^^^^^");
 
   // pagination setup
-  const resultsPerPage = 10;
-  const totalResults = 0;
-
   // pagination change control
   function onPageChange(p) {
     setPage(p);
   }
 
+  useEffect(() => {
+    BookService.getBooks().then((data) => {
+      setBooks(data.books);
+    });
+  }, []);
+
   // on page change, load new sliced data
   // here you would make another server request for new data
   useEffect(() => {
-    setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
+    setData(data.slice((page - 1) * resultsPerPage, page * resultsPerPage));
   }, [page]);
 
-  const { isAuthenticated, user, setIsAuthenticated, setUser } = useContext(
-    AuthContext
-  );
+  const {
+    authContext,
+    isAuthenticated,
+    user,
+    setIsAuthenticated,
+    setUser,
+  } = useContext(AuthContext);
 
   const [search, setSearch] = useContext(SearchContext);
+
+  const resultsPerPage = 15;
+  const totalResults = search.length;
+
+  // console.log(search);
+
+  const [book, setBook] = useState({ title: "" });
+  const [books, setBooks] = useState([]);
+  const [message, setMessage] = useState(null);
+
+  const addClick = (data) => {
+    Swal.fire({
+      icon: "success",
+      title: "Book added to your list",
+      text: "You can view your list at My Page",
+      showConfirmButton: false,
+    });
+    setTimeout(() => {
+      setBook({
+        title: data.volumeInfo.title,
+        authors: data.volumeInfo.authors.join(", "),
+        description: data.volumeInfo.description,
+        thumbnail: data.volumeInfo.imageLinks.smallThumbnail,
+      });
+      Swal.close();
+    }, 1500);
+  };
+
+  useEffect(() => {
+    console.log("new entry: ");
+    console.log(book);
+    if (book.title !== "") {
+      onAdd(book);
+    }
+  }, [book]);
+
+  const onAdd = () => {
+    BookService.postBook(book);
+  };
+
+  const resetForm = () => {
+    setBook({ title: "", authors: "", description: "", thumbnail: "" });
+  };
+
+  const thumbnailFunc = (data) => {
+    if ("imageLinks" in data) {
+      return data.imageLinks.smallThumbnail;
+    }
+  };
+
+  const authorsFunc = (data) => {
+    if ("authors" in data) {
+      if (data.authors.join(", ").length >= 40) {
+        return data.authors.join(", ").slice(0, 40) + "...";
+      }
+      return data.authors.join(", ");
+    }
+  };
+
+  const titleFunc = (data) => {
+    if (data.title.length >= 60) {
+      return data.title.slice(0, 60) + "...";
+    }
+    return data.title;
+  };
 
   return (
     <>
       <PageTitle>Dashboard </PageTitle>
 
-      <CTA />
+      {/* <CTA /> */}
 
       {/* <!-- Cards --> */}
-      <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
+      {/* <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
         <InfoCard title="Watched Authors" value="11">
           <RoundIcon
             icon={PeopleIcon}
@@ -81,14 +157,14 @@ function Dashboard(props) {
           />
         </InfoCard>
 
-        {/* <InfoCard title="Cart" value="3">
+        <InfoCard title="Cart" value="3">
           <RoundIcon
             icon={CartIcon}
             iconColorClass="text-blue-500 dark:text-blue-100"
             bgColorClass="bg-blue-100 dark:bg-blue-500"
             className="mr-4"
           />
-        </InfoCard> */}
+        </InfoCard>
 
         <InfoCard title="Unread Messages" value="2">
           <RoundIcon
@@ -98,7 +174,7 @@ function Dashboard(props) {
             className="mr-4"
           />
         </InfoCard>
-      </div>
+      </div> */}
 
       <TableContainer>
         <Table>
@@ -117,11 +193,17 @@ function Dashboard(props) {
                   <div className="flex items-center text-sm">
                     <Avatar
                       className="hidden mr-3 md:block"
-                      src={data.image}
+                      src={
+                        thumbnailFunc(data.volumeInfo)
+                        // data.volumeInfo.imageLinks.smallThumbnail ||
+                        // data.volumeInfo.imageLinks.thumbnail
+                      }
                       alt=""
                     />
                     <div>
-                      <p className="font-semibold">{data.volumeInfo.title}</p>
+                      <p className="font-semibold">
+                        {titleFunc(data.volumeInfo)}
+                      </p>
                       <p className="text-xs text-gray-600 dark:text-gray-400">
                         {user.job}
                       </p>
@@ -129,7 +211,9 @@ function Dashboard(props) {
                   </div>
                 </TableCell>
                 <TableCell>
-                  <span className="text-sm">{data.volumeInfo.authors[0]}</span>
+                  <span className="text-sm">
+                    {authorsFunc(data.volumeInfo)}
+                  </span>
                 </TableCell>
                 <TableCell>
                   <Badge type={user.status}>
@@ -137,7 +221,12 @@ function Dashboard(props) {
                   </Badge>
                 </TableCell>
                 <TableCell>
-                  <button className="bg-purple-400 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full">
+                  <button
+                    className="bg-purple-400 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full"
+                    onClick={() => {
+                      addClick(data);
+                    }}
+                  >
                     Add
                   </button>
                 </TableCell>

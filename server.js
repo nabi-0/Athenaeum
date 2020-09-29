@@ -4,18 +4,38 @@ const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
 app.use(cookieParser());
 app.use(express.json());
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
+const path = require("path");
 
-mongoose.connect(
-  "mongodb://localhost:27017/athenaeum",
-  { useNewUrlParser: true, useUnifiedTopology: true },
-  () => {
-    console.log("successfully connected to database");
-  }
-);
+require("dotenv").config();
+
+// mongoose.connect(
+//   "mongodb://localhost:27017/athenaeum",
+//   { useNewUrlParser: true, useUnifiedTopology: true },
+//   () => {
+//     console.log("successfully connected to database");
+//   }
+// );
+
+const url = process.env.ATLAS_URL;
+mongoose.connect(url, {
+  useUnifiedTopology: true,
+  useNewUrlParser: true,
+  useCreateIndex: true,
+});
+const connection = mongoose.connection;
+connection.once("open", () => {
+  console.log("MongoDB database connected succesfully");
+});
 
 const userRouter = require("./routes/User");
 app.use("/user", userRouter);
+
+// Serves the build
+// app.use(express.static(path.join(__dirname, "build")));
+// app.get("/", function (req, res) {
+//   res.sendFile(path.join(__dirname, "build", "index.html"));
+// });
 
 // Testing User model and mongoose connections
 // const User = require("./models/User");
@@ -30,6 +50,12 @@ app.use("/user", userRouter);
 //   console.log(document);
 // });
 
+// serves the build on PORT
+// app.use(express.static(path.join(__dirname, "./build")));
+// app.get("/", function (req, res) {
+//   res.sendFile(path.join(__dirname, "build", "index.html"));
+// });
+
 app.listen(PORT, () => {
-  console.log("express server started");
+  console.log(`Server is now started on port ${PORT}!`);
 });
