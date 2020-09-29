@@ -24,7 +24,7 @@ function Layout() {
     <div
       className={`flex h-screen bg-gray-50 dark:bg-gray-900 ${
         isSidebarOpen && "overflow-hidden"
-        }`}
+      }`}
     >
       <Sidebar />
 
@@ -39,7 +39,9 @@ function Layout() {
                     key={i}
                     exact={true}
                     path={`/app${route.path}`}
-                    render={(props) => <route.component {...props} results={results} />}
+                    render={(props) => (
+                      <route.component {...props} results={results} />
+                    )}
                   />
                 ) : null;
               })}

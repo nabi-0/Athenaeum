@@ -1,12 +1,9 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import ImageLight from "../assets/img/create-account-office.jpeg";
 import ImageDark from "../assets/img/create-account-office-dark.jpeg";
-import { GithubIcon, TwitterIcon } from "../icons";
 import { Input, Label, Button } from "@windmill/react-ui";
 import AuthService from "../Services/AuthService";
-import Message from "../components/Message";
 import Swal from "sweetalert2";
 
 function Register(props) {
@@ -35,12 +32,6 @@ function Register(props) {
   const onSubmit = (event) => {
     event.preventDefault();
     AuthService.register(user).then((data) => {
-      // const { isAuthenticated, user, message } = data;
-      // if (isAuthenticated) {
-      //   authContext.setUser(user);
-      //   authContext.setIsAuthenticated(isAuthenticated);
-      //   props.history.push("/app/dashboard");
-      // } else setMessage(message);
       const { message } = data;
       setMessage(message);
       resetForm();

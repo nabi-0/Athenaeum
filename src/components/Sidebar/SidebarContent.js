@@ -1,12 +1,10 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import routes from "../../routes/sidebar";
 import { NavLink, Route } from "react-router-dom";
 import * as Icons from "../../icons";
 import SidebarSubmenu from "./SidebarSubmenu";
 import { Button } from "@windmill/react-ui";
 import { Link } from "react-router-dom";
-import AuthService from "../../Services/AuthService";
-import { AuthContext } from "../../context/AuthContext";
 
 function Icon({ icon, ...props }) {
   const Icon = Icons[icon];
@@ -14,10 +12,6 @@ function Icon({ icon, ...props }) {
 }
 
 function SidebarContent() {
-  const { isAuthenticated, user, setIsAuthenticated, setUser } = useContext(
-    AuthContext
-  );
-
   return (
     <div className="py-4 text-gray-500 dark:text-gray-400">
       <Link
@@ -56,12 +50,6 @@ function SidebarContent() {
         )}
       </ul>
       <div className="px-6 my-6">
-        {/* <Button>
-          Create account
-          <span className="ml-2" aria-hidden="true">
-            +
-          </span>
-        </Button> */}
         <Button>
           Create new listing
           <span className="ml-2" aria-hidden="true">

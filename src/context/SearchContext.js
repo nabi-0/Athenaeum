@@ -1,5 +1,4 @@
-import { PromiseProvider } from "mongoose";
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState } from "react";
 
 export const SearchContext = createContext();
 

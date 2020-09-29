@@ -6,7 +6,6 @@ import Message from "../components/Message";
 
 import ImageLight from "../assets/img/login-office.jpeg";
 import ImageDark from "../assets/img/login-office-dark.jpeg";
-import { GithubIcon, TwitterIcon } from "../icons";
 import { Label, Input, Button } from "@windmill/react-ui";
 
 function Login(props) {
@@ -15,9 +14,7 @@ function Login(props) {
   const authContext = useContext(AuthContext);
 
   const onChange = (event) => {
-    // event.preventDefault();
     setUser({ ...user, [event.target.name]: event.target.value });
-    // console.log(user);
   };
 
   const onSubmit = (event) => {
@@ -79,13 +76,7 @@ function Login(props) {
                   />
                 </Label>
 
-                <Button
-                  className="mt-4"
-                  block
-                  type="submit"
-                  // tag={Link}
-                  // to="/app"
-                >
+                <Button className="mt-4" block type="submit">
                   Log in
                 </Button>
               </form>
@@ -93,23 +84,6 @@ function Login(props) {
 
               <hr className="my-8" />
 
-              {/* <Button block layout="outline">
-                <GithubIcon className="w-4 h-4 mr-2" aria-hidden="true" />
-                Github
-              </Button>
-              <Button className="mt-4" block layout="outline">
-                <TwitterIcon className="w-4 h-4 mr-2" aria-hidden="true" />
-                Twitter
-              </Button> */}
-
-              {/* <p className="mt-4">
-                <Link
-                  className="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline"
-                  to="/forgot-password"
-                >
-                  Forgot your password?
-                </Link>
-              </p> */}
               <p className="mt-1">
                 <Link
                   className="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline"

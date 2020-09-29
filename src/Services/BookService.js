@@ -3,7 +3,7 @@ export default {
     return fetch("/user/books").then((response) => {
       if (response.status != 401) {
         return response.json().then((data) => {
-          return data; // think "return data" is needed
+          return data;
         });
       } else return { message: { msgBody: "Unauthorized" }, msgError: true };
     });
@@ -18,7 +18,7 @@ export default {
     }).then((response) => {
       if (response.status != 401) {
         return response.json().then((data) => {
-          return data; // think "return data" is needed
+          return data;
         });
       } else return { message: { msgBody: "Unauthorized" }, msgError: true };
     });
@@ -26,14 +26,10 @@ export default {
   deleteBook: (bookID) => {
     return fetch("/user/test/" + bookID, {
       method: "delete",
-      // body: JSON.stringify(book),
-      // headers: {
-      //   "Content-Type": "application/json",
-      // },
     }).then((response) => {
       if (response.status != 401) {
         return response.json().then((data) => {
-          return data; // think "return data" is needed
+          return data;
         });
       } else return { message: { msgBody: "Unauthorized" }, msgError: true };
     });
